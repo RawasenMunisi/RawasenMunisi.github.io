@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rawasen Munisi — RF Engineer &amp; Software Developer</title>
+<script>
+(function(){
+  try{
+    var saved = localStorage.getItem('rm-theme');
+    var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    if(theme === 'light'){ document.documentElement.setAttribute('data-theme','light'); }
+  }catch(e){}
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://afrotel-group.com">
+<link rel="preload" as="image" href="rawasen_tower_final.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-deep:#0A0E1A;
+  --bg-deep-rgb:10,14,26;
+  --bg-panel:#10172B;
+  --bg-panel-2:#151D36;
+  --beacon:#1FE873;
+  --cyan:#4CD9E8;
+  --text-primary:#EDEFF5;
+  --text-muted:#8B93A7;
+  --line: rgba(237,239,245,0.09);
+  color-scheme: dark;
+}
+:root[data-theme="light"]{
+  --bg-deep:#F3F5FA;
+  --bg-deep-rgb:243,245,250;
+  --bg-panel:#FFFFFF;
+  --bg-panel-2:#EBEFF6;
+  --beacon:#0E9F52;
+  --cyan:#0891A8;
+  --text-primary:#12172A;
+  --text-muted:#5C6478;
+  --line: rgba(18,23,42,0.12);
+  color-scheme: light;
+}
+/* Photo-background sections (and the fixed header that overlays them)
+   keep the dark palette in light mode too, since their text sits on a
+   dark-tinted photo overlay for legibility. The explicit `color` below
+   is required because plain text (h2, p with no color of its own)
+   inherits the *computed* color from <body>, not a re-evaluated
+   var(--text-primary) — so overriding the custom property alone isn't
+   enough here. */
+html[data-theme="light"] .hero,
+html[data-theme="light"] .whatido,
+html[data-theme="light"] .mission,
+html[data-theme="light"] .roaming,
+html[data-theme="light"] header.nav{
+  --bg-deep:#0A0E1A;
+  --bg-deep-rgb:10,14,26;
+  --bg-panel:#10172B;
+  --bg-panel-2:#151D36;
+  --beacon:#1FE873;
+  --cyan:#4CD9E8;
+  --text-primary:#EDEFF5;
+  --text-muted:#8B93A7;
+  --line: rgba(237,239,245,0.09);
+  color:#EDEFF5;
+}
+/* Vendor logos now display in full color in both themes (see .client-card img below) */
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg-deep);
+  color:var(--text-primary);
+  font-family:'IBM Plex Sans', sans-serif;
+  line-height:1.6;
+  overflow-x:hidden;
+  transition: background-color .35s ease, color .35s ease;
+}
+::selection{ background:var(--beacon); color:#0A0E1A; }
+a{ color:inherit; text-decoration:none; }
+img{ max-width:100%; display:block; }
+:focus-visible{ outline:2px solid var(--cyan); outline-offset:3px; }
+
+/* ===== SIGNATURE ELEMENT: scan beam fixed at top, sweeps like a spectrum analyzer ===== */
+.scan-beam{
+  position:fixed; top:0; left:0; right:0; height:2px; z-index:100;
+  background:linear-gradient(90deg, transparent, var(--cyan), transparent);
+  animation: sweep 5s linear infinite;
+  opacity:0.8;
+}
+@keyframes sweep{
+  0%{ transform:translateX(-100%); }
+  100%{ transform:translateX(100%); }
+}
+.noise-overlay{
+  position:fixed; inset:0; pointer-events:none; z-index:1;
+  background-image: radial-gradient(circle at 18% 15%, rgba(76,217,232,0.06), transparent 42%),
+                     radial-gradient(circle at 82% 65%, rgba(255,90,54,0.05), transparent 45%);
+}
+
+header.nav{
+  position:fixed; top:0; left:0; right:0; z-index:50;
+  display:flex; justify-content:space-between; align-items:center;
+  gap:18px;
+  padding:22px 6vw;
+  background:linear-gradient(180deg, rgba(var(--bg-deep-rgb),0.94), rgba(var(--bg-deep-rgb),0));
+  backdrop-filter: blur(4px);
+  transition: background-color .35s ease;
+}
+.nav-mark{
+  font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:14.5px;
+  letter-spacing:0.04em;
+  display:flex; align-items:center; gap:10px;
+}
+.signal-bars{ display:flex; align-items:flex-end; gap:2px; height:14px; }
+.signal-bars span{
+  display:block; width:3px; background:var(--cyan); border-radius:1px;
+  animation: pulse 1.6s ease-in-out infinite;
+}
+.signal-bars span:nth-child(1){ height:4px; animation-delay:0s; }
+.signal-bars span:nth-child(2){ height:8px; animation-delay:0.15s; }
+.signal-bars span:nth-child(3){ height:11px; animation-delay:0.3s; }
+.signal-bars span:nth-child(4){ height:14px; animation-delay:0.45s; }
+@keyframes pulse{ 0%,100%{ opacity:0.35; } 50%{ opacity:1; } }
+nav.links{ display:flex; gap:30px; font-size:12.5px; color:var(--text-muted); font-family:'IBM Plex Mono', monospace; }
+nav.links a:hover{ color:var(--cyan); }
+
+.theme-toggle{
+  display:flex; align-items:center; justify-content:center;
+  width:32px; height:32px; flex-shrink:0;
+  border:1px solid var(--line); border-radius:50%;
+  background:rgba(var(--bg-deep-rgb),0.4);
+  color:var(--text-muted); cursor:pointer;
+  transition: color .2s ease, border-color .2s ease, transform .2s ease;
+}
+.theme-toggle:hover{ color:var(--cyan); border-color:var(--cyan); transform:translateY(-1px); }
+.theme-toggle svg{ width:15px; height:15px; }
+.theme-toggle .icon-moon{ display:none; }
+:root[data-theme="light"] .theme-toggle .icon-sun{ display:none; }
+:root[data-theme="light"] .theme-toggle .icon-moon{ display:block; }
+
+section{ position:relative; z-index:2; padding:0 6vw; }
+
+.tower-light{
+  position:absolute;
+  top:9%;
+  left:71.9%;
+  transform:translateX(-50%);
+  width:12px; height:12px; border-radius:50%;
+  background:#FF3B30;
+  z-index:0;
+  pointer-events:none;
+  animation: towerBlink 1.6s ease-in-out infinite;
+}
+@keyframes towerBlink{
+  0%, 100%{
+    opacity:1;
+    box-shadow:0 0 28px 14px rgba(255,59,48,1), 0 0 55px 25px rgba(255,59,48,0.7), 0 0 90px 40px rgba(255,59,48,0.4);
+  }
+  50%{
+    opacity:0.35;
+    box-shadow:0 0 6px 3px rgba(255,59,48,0.3);
+  }
+}
+
+/* ===== HERO ===== */
+.hero{
+  min-height:100vh;
+  display:grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items:center;
+  gap:40px;
+  padding-top:120px;
+  padding-bottom:60px;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';
+  position:absolute; inset:0; z-index:-1;
+  background-image:
+    linear-gradient(180deg, rgba(6,12,28,0.15) 0%, rgba(8,14,30,0.40) 55%, rgba(10,14,26,0.80) 100%),
+    linear-gradient(100deg, rgba(10,14,26,0.35) 0%, rgba(10,14,26,0.08) 40%, rgba(10,14,26,0.35) 100%),
+    url('rawasen_tower_final.jpg');
+  background-size:cover;
+  background-position:center top;
+  filter:saturate(1.05);
+}
+.eyebrow{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:12px; letter-spacing:0.12em; text-transform:uppercase;
+  color:var(--cyan);
+  display:flex; align-items:center; gap:10px;
+  margin-bottom:20px;
+}
+.eyebrow::before{
+  content:''; width:7px; height:7px; border-radius:50%;
+  background:var(--beacon);
+  box-shadow:0 0 0 0 rgba(31,232,115,0.6);
+  animation: beacon 2s infinite;
+}
+@keyframes beacon{
+  0%{ box-shadow:0 0 0 0 rgba(31,232,115,0.6); }
+  70%{ box-shadow:0 0 0 10px rgba(31,232,115,0); }
+  100%{ box-shadow:0 0 0 0 rgba(31,232,115,0); }
+}
+@keyframes textBlink{
+  0%,100%{ opacity:1; }
+  50%{ opacity:0.25; }
+}
+.blink-word{ animation: textBlink 1.2s ease-in-out infinite; }
+.eyebrow-noblink::before{ display:none; }
+h1.headline{
+  font-family:'Space Grotesk', sans-serif;
+  font-weight:600;
+  font-size:clamp(32px, 4.2vw, 56px);
+  line-height:1.1;
+  letter-spacing:-0.01em;
+  max-width:740px;
+}
+h1.headline .accent{ color:var(--cyan); }
+.hero-sub{
+  margin-top:22px; max-width:560px; color:var(--text-muted); font-size:16px;
+}
+.hero-meta{
+  margin-top:32px; display:flex; gap:26px; flex-wrap:wrap;
+  font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--text-muted);
+}
+.hero-meta div span.label{ display:block; color:#5A6278; font-size:10px; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:4px;}
+.hero-meta div span.val{ color:var(--text-primary); }
+.hero-cta{ margin-top:34px; display:flex; gap:16px; flex-wrap:wrap; }
+.btn{
+  display:inline-flex; align-items:center; gap:8px;
+  background:transparent; border:1px solid var(--cyan); color:var(--cyan);
+  padding:12px 22px; border-radius:5px; font-family:'IBM Plex Mono', monospace; font-size:13px;
+  transition: background 0.2s ease, color 0.2s ease; white-space:nowrap;
+}
+.btn:hover{ background:var(--cyan); color:var(--bg-deep); }
+.btn-ghost{ border-color:var(--line); color:var(--text-primary); }
+.btn-ghost:hover{ background:var(--text-primary); color:var(--bg-deep); border-color:var(--text-primary); }
+
+/* ===== PORTRAIT CARD ===== */
+.portrait-card{
+  background:var(--bg-panel);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:24px;
+  margin-bottom:18px;
+  display:flex; align-items:center; gap:22px;
+  width:fit-content; max-width:100%;
+}
+@media (min-width: 861px){
+  .portrait-card{ margin-left:auto; }
+}
+.portrait-card img{
+  width:150px; height:150px; border-radius:50%;
+  object-fit:cover; object-position:center 15%;
+  border:3px solid var(--cyan);
+  box-shadow:0 0 0 8px rgba(76,217,232,0.10);
+  flex-shrink:0;
+}
+.portrait-info{ font-family:'IBM Plex Mono', monospace; }
+.portrait-info .p-name{
+  font-family:'Space Grotesk', sans-serif; font-weight:600;
+  font-size:17px; color:var(--text-primary); letter-spacing:0.01em;
+  white-space:nowrap;
+}
+.portrait-info .p-role{ font-size:12.5px; color:var(--cyan); margin-top:6px; white-space:nowrap; }
+.portrait-info .p-status{
+  display:flex; align-items:center; gap:6px; margin-top:9px;
+  font-size:10px; color:var(--cyan); text-transform:uppercase; letter-spacing:0.06em;
+}
+.portrait-info .p-status .pdot{ width:6px; height:6px; border-radius:50%; background:var(--cyan); animation: beacon 2s infinite; }
+
+.scope{
+  background:var(--bg-panel);
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:24px;
+  position:relative;
+  overflow:hidden;
+}
+.scope-label{
+  font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--text-muted);
+  display:flex; justify-content:space-between; margin-bottom:14px;
+  letter-spacing:0.05em;
+}
+.scope-label b{ color:var(--cyan); font-weight:500; }
+
+/* ---- TEMS-style analyzer chart ---- */
+.tems-chart{
+  display:flex; gap:8px;
+  background:linear-gradient(180deg, #080d1c, var(--bg-panel-2));
+  border:1px solid var(--line);
+  border-radius:5px; padding:10px 10px 6px;
+}
+.tems-chart .db-scale{
+  display:flex; flex-direction:column; justify-content:space-between;
+  font-family:'IBM Plex Mono', monospace; font-size:8px; color:var(--text-muted);
+  padding:2px 0; width:26px;
+}
+.tems-svg{ flex:1; width:100%; height:120px; display:block; overflow:visible; }
+.tems-svg .grid-h line, .tems-svg .grid-v line{ stroke:rgba(76,217,232,0.09); stroke-width:1; }
+.tems-svg .noise-floor{ fill:none; stroke:rgba(139,147,167,0.4); stroke-width:1; }
+.tems-svg .trace{
+  fill:none; stroke:var(--cyan); stroke-width:1.6; stroke-linejoin:round; stroke-linecap:round;
+  filter:drop-shadow(0 0 4px rgba(76,217,232,0.65));
+}
+.tems-svg .noise-floor{
+  animation:none;
+}
+.tems-svg .peak{
+  r:2.4; fill:#fff;
+  filter:drop-shadow(0 0 4px var(--cyan));
+  animation:peak-blink 3.6s ease-in-out infinite;
+}
+@keyframes peak-blink{ 0%,100%{ opacity:1; } 50%{ opacity:.55; } }
+
+.freq-scale{
+  display:flex; justify-content:space-between;
+  font-family:'IBM Plex Mono', monospace; font-size:8.5px; color:var(--text-muted);
+  padding:6px 10px 0 36px; letter-spacing:.02em;
+}
+.freq-unit{
+  text-align:right; font-family:'IBM Plex Mono', monospace; font-size:8px;
+  color:var(--text-muted); padding:0 10px 10px 0;
+}
+
+.kpi-grid{
+  display:grid; grid-template-columns:1fr 1fr; gap:0 16px;
+  border-top:1px solid var(--line); margin-top:10px; padding-top:12px;
+  font-family:'IBM Plex Mono', monospace;
+}
+.kpi-col-label{ font-size:9.5px; letter-spacing:.1em; color:var(--cyan); margin-bottom:6px; }
+.kpi-row{ display:flex; justify-content:space-between; font-size:11px; padding:3px 0; color:var(--text-muted); }
+.kpi-row b{ color:var(--text-primary); font-weight:500; }
+
+.scope-footer{
+  margin-top:14px; padding-top:14px; border-top:1px solid var(--line);
+  display:flex; justify-content:space-between;
+  font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--text-muted);
+}
+
+/* ===== SECTION TITLES ===== */
+.section-head{ margin-bottom:44px; }
+.section-head .eyebrow{ margin-bottom:12px; }
+.section-head h2{
+  font-family:'Space Grotesk', sans-serif; font-weight:600;
+  font-size:clamp(24px, 3vw, 34px);
+}
+.section-head p{ color:var(--text-muted); max-width:560px; margin-top:10px; font-size:15px; }
+
+/* ===== ABOUT ===== */
+/* subtle code texture on every section that isn't showing the tower photo */
+.about, .bands, .project, .clients, .handover, .contact{
+  background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyODAiIGhlaWdodD0iMjgwIj4KICA8ZyBmaWxsPSIjNENEOUU4IiBmaWxsLW9wYWNpdHk9IjAuMTAiIGZvbnQtZmFtaWx5PSJJQk0gUGxleCBNb25vLCBtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTIiPgogICAgPHRleHQgeD0iOCIgeT0iMjAiPjAxMDAxPC90ZXh0PgogICAgPHRleHQgeD0iMTE4IiB5PSIyMCI+R0VUIC9yZjwvdGV4dD4KICAgIDx0ZXh0IHg9IjgiIHk9IjUwIj4weDNGMkE8L3RleHQ+CiAgICA8dGV4dCB4PSIxNjAiIHk9IjUwIj57IH08L3RleHQ+CiAgICA8dGV4dCB4PSIzNCIgeT0iODAiPmZuIG9wdGltaXplKCk8L3RleHQ+CiAgICA8dGV4dCB4PSI4IiB5PSIxMTAiPmNvbnN0IGtwaSA9PC90ZXh0PgogICAgPHRleHQgeD0iMTgyIiB5PSIxMTAiPjEwMTEwPC90ZXh0PgogICAgPHRleHQgeD0iNjQiIHk9IjE0MCI+cmV0dXJuIHRydWU7PC90ZXh0PgogICAgPHRleHQgeD0iOCIgeT0iMTcwIj5pbXBvcnQgcmY8L3RleHQ+CiAgICA8dGV4dCB4PSIxNjAiIHk9IjE3MCI+YXN5bmM8L3RleHQ+CiAgICA8dGV4dCB4PSIxMiIgeT0iMjAwIj53aGlsZSgxKTo8L3RleHQ+CiAgICA8dGV4dCB4PSIxNDAiIHk9IjIwMCI+MHhBNDwvdGV4dD4KICAgIDx0ZXh0IHg9IjQ0IiB5PSIyMzAiPi8vIEtQSSBvazwvdGV4dD4KICAgIDx0ZXh0IHg9IjgiIHk9IjI2MCI+MDExMTA8L3RleHQ+CiAgICA8dGV4dCB4PSIxNzIiIHk9IjI2MCI+ZGIoLTkyKTwvdGV4dD4KICA8L2c+Cjwvc3ZnPgo=");
+  background-repeat:repeat;
+  background-size:280px 280px;
+}
+
+.about{ padding-top:110px; padding-bottom:100px; border-top:1px solid var(--line); }
+.about-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:60px; }
+.about-grid p{ color:var(--text-muted); font-size:15.5px; margin-bottom:16px; }
+.about-grid strong{ color:var(--text-primary); font-weight:500; }
+.stats-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:40px; }
+.stat-card{ background:var(--bg-panel); border:1px solid var(--line); border-radius:8px; padding:22px 20px; }
+.stat-num{ font-family:'Space Grotesk', sans-serif; font-size:21px; font-weight:700; color:var(--cyan); margin-bottom:4px; }
+.stat-title{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-primary); margin-bottom:10px; }
+.stat-desc{ font-size:13px; line-height:1.5; color:var(--text-muted); }
+
+/* ===== WHAT I DO ===== */
+.whatido{
+  position:relative;
+  padding:100px 6vw;
+  border-top:1px solid var(--line);
+  background-image:
+    linear-gradient(rgba(10,14,26,0.72), rgba(10,14,26,0.72)),
+    url("drivetest-bg.jpg");
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-attachment:fixed;
+}
+.whatido-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:18px; }
+.whatido-group{ background:var(--bg-panel); border:1px solid var(--line); border-radius:8px; padding:26px; transition: background 0.25s ease, border-color 0.25s ease; }
+.whatido-group:hover{ background:var(--bg-panel-2); border-color:var(--cyan); }
+.wig-head{ display:flex; align-items:center; gap:10px; margin-bottom:16px; }
+.wi-icon{ font-size:19px; }
+.wig-title{ font-family:'Space Grotesk', sans-serif; font-size:15px; font-weight:600; color:var(--text-primary); }
+.wig-list{ list-style:none; display:flex; flex-direction:column; gap:10px; }
+.wig-list li{ font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--text-muted); padding-left:14px; position:relative; line-height:1.5; }
+.wig-list li::before{ content:''; position:absolute; left:0; top:7px; width:5px; height:5px; border-radius:50%; background:var(--cyan); }
+
+/* ===== MISSION ===== */
+.mission{
+  padding:60px 6vw 100px;
+  background-image:
+    linear-gradient(rgba(10,14,26,0.72), rgba(10,14,26,0.72)),
+    url("drivetest-bg.jpg");
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-attachment:fixed;
+}
+.mission-card{ background:var(--bg-panel); border:1px solid var(--line); border-left:2px solid var(--beacon); border-radius:6px; padding:38px; max-width:820px; }
+.mission-card p{ font-size:16.5px; color:var(--text-primary); max-width:700px; line-height:1.7; }
+.mission-tagline{ margin-top:22px; padding-top:18px; border-top:1px solid var(--line); font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--cyan); letter-spacing:0.02em; }
+
+/* ===== BANDS ===== */
+.bands{ padding:100px 6vw; border-top:1px solid var(--line); }
+.band-grid{ display:grid; grid-template-columns: repeat(4, 1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+.band-card{ background:var(--bg-panel); padding:26px 22px; min-height:180px; display:flex; flex-direction:column; justify-content:space-between; transition: background 0.25s ease; }
+.band-card:hover{ background:var(--bg-panel-2); }
+.band-freq{ font-family:'IBM Plex Mono', monospace; color:var(--cyan); font-size:12.5px; }
+.band-name{ font-family:'Space Grotesk', sans-serif; font-size:18px; font-weight:600; margin-top:10px; }
+.band-vendors{ font-size:11.5px; color:var(--text-muted); margin-top:14px; line-height:1.5; }
+
+/* ===== ROAMING ===== */
+.roaming{ position:relative; overflow:hidden; padding:100px 6vw; border-top:1px solid var(--line); }
+.roaming::before{
+  content:'';
+  position:absolute; inset:0; z-index:-1;
+  background-image:
+    linear-gradient(90deg, var(--bg-deep) 0%, var(--bg-deep) 42%, rgba(10,14,26,0.6) 62%, rgba(10,14,26,0.1) 100%),
+    url('rawasen_tower.jpg');
+  background-size: cover, cover;
+  background-position: right center, right center;
+  filter:saturate(1.05);
+}
+.roam-table{ border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+.roam-row{ display:grid; grid-template-columns: 1.2fr 1fr 1fr 1.3fr; padding:17px 22px; border-bottom:1px solid var(--line); align-items:center; gap:16px; background:rgba(16,23,43,0.65); }
+.roam-row:last-child{ border-bottom:none; }
+.roam-row.head{ background:var(--bg-panel); font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.06em; }
+.roam-row.current{ background:rgba(21,29,54,0.85); }
+.roam-op{ font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:14.5px; }
+.roam-country{ color:var(--text-muted); font-size:13.5px; }
+.roam-vendor{ font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--cyan); }
+.roam-via{ color:var(--text-muted); font-size:12.5px; }
+.roam-via a{ color:var(--text-muted); border-bottom:1px dotted var(--line); padding-bottom:1px; transition: color 0.2s ease, border-color 0.2s ease; }
+.roam-via a:hover{ color:var(--cyan); border-color:var(--cyan); }
+.roam-now{ display:inline-flex; align-items:center; gap:6px; font-family:'IBM Plex Mono', monospace; font-size:9.5px; color:var(--beacon); letter-spacing:0.06em; text-transform:uppercase; margin-left:10px; }
+.roam-now .rdot{ width:6px; height:6px; border-radius:50%; background:var(--beacon); animation: beacon 2s infinite; }
+
+.id-badge-btn{
+  display:inline-flex; align-items:center; gap:5px;
+  margin-left:10px; padding:3px 9px;
+  font-family:'IBM Plex Mono', monospace; font-size:9.5px;
+  letter-spacing:0.05em; text-transform:uppercase;
+  color:var(--cyan); border:1px solid var(--cyan);
+  border-radius:20px; background:rgba(76,217,232,0.06);
+  cursor:pointer; transition:background 0.2s ease, color 0.2s ease;
+}
+.id-badge-btn:hover{ background:var(--cyan); color:var(--bg-deep); }
+
+.id-modal-overlay{
+  position:fixed; inset:0; z-index:999;
+  background:rgba(6,9,17,0.78);
+  backdrop-filter:blur(4px);
+  display:none; align-items:center; justify-content:center;
+  padding:24px;
+}
+.id-modal-overlay.open{ display:flex; }
+
+.id-card{
+  position:relative;
+  width:340px; max-width:100%;
+  background:linear-gradient(160deg, var(--bg-panel) 0%, var(--bg-panel-2) 100%);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:26px 24px 22px;
+  box-shadow:0 30px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(76,217,232,0.08);
+  animation:idCardIn 0.35s ease;
+}
+@keyframes idCardIn{ from{ opacity:0; transform:translateY(14px) scale(0.97); } to{ opacity:1; transform:translateY(0) scale(1); } }
+
+.id-card::before{
+  content:''; position:absolute; top:0; left:16px; right:16px; height:2px;
+  background:linear-gradient(90deg, var(--beacon), var(--cyan));
+  border-radius:0 0 3px 3px;
+}
+.id-card-close{
+  position:absolute; top:14px; right:14px;
+  width:26px; height:26px; border-radius:50%;
+  border:1px solid var(--line); background:transparent; color:var(--text-muted);
+  font-size:14px; line-height:1; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  transition:color 0.2s ease, border-color 0.2s ease;
+}
+.id-card-close:hover{ color:var(--text-primary); border-color:var(--cyan); }
+
+.id-card-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; }
+.id-card-org{ font-family:'IBM Plex Mono', monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted); }
+.id-card-org b{ color:var(--text-primary); }
+.id-card-status{ display:inline-flex; align-items:center; gap:5px; font-family:'IBM Plex Mono', monospace; font-size:9px; letter-spacing:0.06em; text-transform:uppercase; color:var(--beacon); }
+.id-card-status .pdot{ width:5px; height:5px; border-radius:50%; background:var(--beacon); animation:beacon 2s infinite; }
+
+.id-card-photo{
+  width:88px; height:88px; border-radius:14px; overflow:hidden;
+  border:2px solid var(--cyan); margin:0 auto 14px;
+  box-shadow:0 0 22px rgba(76,217,232,0.35);
+}
+.id-card-photo img{ width:100%; height:100%; object-fit:cover; }
+
+.id-card-name{ text-align:center; font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:18px; }
+.id-card-role{ text-align:center; font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--cyan); margin-top:4px; }
+
+.id-card-divider{ height:1px; background:var(--line); margin:18px 0; }
+
+.id-card-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px 10px; }
+.id-card-grid div{ font-family:'IBM Plex Mono', monospace; }
+.id-card-grid .label{ font-size:8.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted); margin-bottom:3px; }
+.id-card-grid .value{ font-size:12px; color:var(--text-primary); }
+
+.id-card-footer{ margin-top:20px; display:flex; align-items:center; justify-content:space-between; }
+.id-card-barcode{ display:flex; gap:2px; align-items:flex-end; height:22px; }
+.id-card-barcode span{ width:2px; background:var(--text-muted); opacity:0.5; }
+.id-card-id{ font-family:'IBM Plex Mono', monospace; font-size:9.5px; color:var(--text-muted); letter-spacing:0.04em; }
+
+.id-card.id-card-photo-mode{
+  width:auto; max-width:min(92vw, 480px);
+  padding:14px;
+  background:linear-gradient(160deg, var(--bg-panel) 0%, var(--bg-panel-2) 100%);
+}
+.id-card-real-img{
+  width:100%; height:auto; border-radius:10px; display:block;
+  box-shadow:0 0 0 1px rgba(76,217,232,0.15);
+}
+
+/* ===== PROJECTS ===== */
+.project{ padding:100px 6vw; border-top:1px solid var(--line); }
+.projects-log{ display:flex; flex-direction:column; gap:16px; margin-top:44px; }
+.proj-item{ background:var(--bg-panel); border:1px solid var(--line); border-radius:8px; padding:26px 28px; transition: border-color 0.25s ease, background 0.25s ease; }
+.proj-item:hover{ border-color:var(--cyan); background:var(--bg-panel-2); }
+.proj-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:20px; flex-wrap:wrap; margin-bottom:15px; }
+.proj-title{ font-family:'Space Grotesk', sans-serif; font-size:17px; font-weight:600; }
+.proj-duration{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--text-muted); white-space:nowrap; }
+.proj-meta{ display:flex; gap:20px; flex-wrap:wrap; margin-bottom:16px; font-family:'IBM Plex Mono', monospace; font-size:11.5px; }
+.proj-meta span.m-label{ color:#5A6278; text-transform:uppercase; letter-spacing:0.05em; margin-right:6px; font-size:9.5px; }
+.proj-meta span.m-val{ color:var(--cyan); }
+.proj-highlights{ list-style:none; display:grid; grid-template-columns:repeat(2, 1fr); gap:8px 20px; padding-top:15px; border-top:1px solid var(--line); }
+.proj-highlights li{ font-size:12.5px; color:var(--text-muted); padding-left:14px; position:relative; line-height:1.5; }
+.proj-highlights li::before{ content:''; position:absolute; left:0; top:7px; width:5px; height:5px; border-radius:50%; background:var(--beacon); }
+
+/* ===== CLIENTS — static grid ===== */
+.clients{ --towerco:#FFD166; padding:100px 6vw; border-top:1px solid var(--line); }
+
+.client-group{ margin-bottom:40px; }
+.client-group:last-child{ margin-bottom:0; }
+.client-group-label{
+  display:flex; align-items:center; gap:8px; margin-bottom:18px;
+  font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.1em;
+  text-transform:uppercase; color:var(--text-muted);
+}
+.client-group-label .dot{ width:8px; height:8px; border-radius:50%; display:inline-block; flex-shrink:0; }
+.dot-vendor{ background:var(--beacon); }
+.dot-operator{ background:var(--cyan); }
+.dot-towerco{ background:var(--towerco); }
+
+.client-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; }
+.client-grid-badge{ grid-template-columns:repeat(6, 1fr); }
+.client-card{
+  background:var(--bg-panel); border:1px solid var(--line); border-radius:8px;
+  padding:24px 20px; display:flex; align-items:center; justify-content:center;
+  min-height:88px; transition:border-color .2s, transform .2s, background-color .35s ease;
+}
+.client-card:hover{ border-color:var(--cyan); transform:translateY(-2px); }
+.client-card img{
+  max-width:100%; max-height:26px; width:auto; height:auto;
+  opacity:0.94;
+  background:#FFFFFF;
+  padding:9px 16px;
+  border-radius:6px;
+  transition:opacity .2s, transform .2s;
+}
+.client-card:hover img{ opacity:1; transform:scale(1.03); }
+.client-card.client-badge{
+  padding:0; overflow:hidden; border-radius:8px; min-height:78px;
+}
+.client-card.client-badge img{
+  max-height:none; width:100%; height:100%; object-fit:cover;
+  filter:none; opacity:0.94;
+  background:none; padding:0; border-radius:0;
+}
+.client-card.client-badge:hover img{ opacity:1; }
+
+@media (max-width:860px){
+  .client-grid-badge{ grid-template-columns:repeat(3, 1fr); }
+}
+@media (max-width:560px){
+  .client-grid{ grid-template-columns:repeat(2, 1fr); }
+  .client-grid-badge{ grid-template-columns:repeat(2, 1fr); }
+}
+
+
+/* ===== HANDOVER ===== */
+.handover{ padding:100px 6vw; border-top:1px solid var(--line); }
+.handover-track{ position:relative; display:flex; align-items:center; justify-content:space-between; margin-top:50px; padding:0 10px; }
+.handover-track::before{ content:''; position:absolute; left:0; right:0; top:50%; height:1px; background:linear-gradient(90deg, var(--beacon), var(--cyan)); transform:translateY(-50%); }
+.node{ position:relative; z-index:2; background:var(--bg-deep); display:flex; flex-direction:column; align-items:center; gap:10px; width:150px; text-align:center; }
+.node .dot{ width:11px; height:11px; border-radius:50%; background:var(--beacon); border:3px solid var(--bg-deep); box-shadow:0 0 0 1px var(--line); }
+.node.active .dot{ background:var(--cyan); }
+.node .node-label{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--text-muted); }
+.node .node-title{ font-family:'Space Grotesk', sans-serif; font-size:13.5px; font-weight:600; }
+.handover-note{ margin-top:44px; background:var(--bg-panel); border:1px solid var(--line); border-left:2px solid var(--cyan); padding:20px 24px; border-radius:4px; color:var(--text-muted); font-size:14px; max-width:640px; }
+.handover-note code{ font-family:'IBM Plex Mono', monospace; color:var(--cyan); font-size:12.5px; }
+
+/* ===== CONTACT ===== */
+.contact{ padding:110px 6vw 90px; border-top:1px solid var(--line); text-align:left; }
+.contact h2{ font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:clamp(26px,4vw,42px); max-width:600px; margin-bottom:24px; }
+.contact-links{ display:flex; gap:20px; flex-wrap:wrap; margin-top:18px; align-items:flex-end; }
+.contact-links a{ font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--text-muted); border-bottom:1px solid var(--line); padding-bottom:4px; }
+.contact-links a:hover{ color:var(--cyan); border-color:var(--cyan); }
+.contact-card{
+  display:flex; align-items:center; gap:14px;
+  background:var(--bg-panel); border:1px solid var(--line); border-radius:10px;
+  padding:14px 18px; transition:border-color .2s, box-shadow .2s;
+}
+.contact-card:hover{ border-color:var(--cyan); box-shadow:0 0 24px rgba(76,217,232,0.12); }
+.contact-card-icon{
+  width:34px; height:34px; flex:none; border-radius:8px;
+  background:rgba(31,232,115,0.1); border:1px solid rgba(31,232,115,0.3);
+  display:flex; align-items:center; justify-content:center;
+}
+.contact-card-icon svg{ width:16px; height:16px; stroke:var(--beacon); }
+.contact-card-text{ display:flex; flex-direction:column; gap:3px; }
+.contact-card-text a{ border-bottom:none; padding-bottom:0; }
+.contact-card-primary{ font-family:'IBM Plex Mono', monospace; font-size:14px; color:var(--text-primary); font-weight:600; }
+.contact-card-primary:hover{ color:var(--cyan); }
+.contact-card-secondary{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--text-muted); letter-spacing:0.02em; }
+.contact-card-secondary a{ color:var(--text-muted); }
+.contact-card-secondary a:hover{ color:var(--cyan); }
+.contact-card-simple{
+  display:flex; align-items:center; gap:14px;
+  background:var(--bg-panel); border:1px solid var(--line); border-radius:10px;
+  padding:14px 18px; transition:border-color .2s, box-shadow .2s;
+}
+.contact-card-simple:hover{ border-color:var(--cyan); box-shadow:0 0 24px rgba(76,217,232,0.12); }
+.contact-card-simple .contact-card-icon{
+  background:rgba(76,217,232,0.1); border-color:rgba(76,217,232,0.3);
+}
+.contact-card-simple .contact-card-icon svg{ stroke:var(--cyan); }
+.contact-card-simple a{ font-family:'IBM Plex Mono', monospace; font-size:14px; color:var(--text-primary); font-weight:600; border-bottom:none; padding-bottom:0; }
+.contact-card-simple a:hover{ color:var(--cyan); }
+
+footer{ padding:26px 6vw; border-top:1px solid var(--line); display:flex; justify-content:space-between; font-family:'IBM Plex Mono', monospace; font-size:11px; color:#5A6278; flex-wrap:wrap; gap:10px; }
+
+@media (max-width: 860px){
+  .hero{ grid-template-columns:1fr; padding-top:130px; }
+  .about-grid{ grid-template-columns:1fr; gap:20px; }
+  .stats-grid{ grid-template-columns:repeat(2,1fr); }
+  .band-grid{ grid-template-columns:repeat(2,1fr); }
+  .handover-track{ flex-direction:column; gap:34px; align-items:flex-start; }
+  .handover-track::before{ left:5px; right:auto; top:0; bottom:0; width:1px; height:100%; background:linear-gradient(180deg, var(--beacon), var(--cyan)); }
+  .node{ flex-direction:row; width:auto; text-align:left; }
+  nav.links{ display:none; }
+  .portrait-card{ flex-direction:column; text-align:center; width:100%; }
+  .portrait-info .p-name, .portrait-info .p-role{ white-space:normal; }
+  .tower-light{ top:7.1%; left:49.1%; }
+  .hero::before{
+    background-image:
+      linear-gradient(180deg, rgba(6,12,28,0.18) 0%, rgba(8,14,30,0.45) 55%, rgba(10,14,26,0.85) 100%),
+      linear-gradient(100deg, rgba(10,14,26,0.35) 0%, rgba(10,14,26,0.10) 40%, rgba(10,14,26,0.35) 100%),
+      url('rawasen_tower.jpg');
+    background-position:center top;
+  }
+}
+@media (max-width: 700px){
+  .whatido-grid{ grid-template-columns:1fr; }
+  .roam-row{ grid-template-columns:1fr 1fr; row-gap:6px; }
+  .roam-row.head{ display:none; }
+  .proj-highlights{ grid-template-columns:1fr; }
+}
+@media (prefers-reduced-motion: reduce){
+  *{ animation:none !important; transition:none !important; }
+}
+</style>
+</head>
+<body>
+<div class="scan-beam"></div>
+<div class="noise-overlay"></div>
+<header class="nav">
+<div class="nav-mark">
+<div class="signal-bars"><span></span><span></span><span></span><span></span></div>
+RAWASEN
+</div>
+<nav class="links">
+<a href="#about">About</a>
+<a href="#bands">Experience</a>
+<a href="#roaming">Roaming</a>
+<a href="#clients">Clients</a>
+<a href="#projects">Projects</a>
+<a href="#handover">Handover</a>
+<a href="#contact">Contact</a>
+</nav>
+<button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark theme">
+<svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="2" x2="12" y2="4"></line><line x1="12" y1="20" x2="12" y2="22"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="2" y1="12" x2="4" y2="12"></line><line x1="20" y1="12" x2="22" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+<svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+</button>
+</header>
+
+<section class="hero">
+<div class="tower-light"></div>
+<div>
+<div class="eyebrow eyebrow-noblink">Rawasen Munisi</div>
+<h1 class="headline">Engineering the Future Through <span class="accent">Networks</span> and Software</h1>
+<p class="hero-sub">I specialize in RF Network Optimization, Drive Testing, and Software Development with more than 8 years of experience delivering world-class telecommunications solutions across Africa. From single site verification and cluster optimization to custom software development, I combine engineering expertise with technology innovation to solve complex challenges.</p>
+<div class="hero-meta">
+<div><span class="label">Role</span><span class="val">RF Engineer</span></div>
+<div><span class="label">Experience</span><span class="val">8+ years</span></div>
+<div><span class="label">Currently learning</span><span class="val">Python</span></div>
+<div><span class="label">Status</span><span class="val">Optimizing Networks. Building Software.</span></div>
+</div>
+<div class="hero-cta">
+<a href="#projects" class="btn">View My Projects</a>
+<a href="#contact" class="btn btn-ghost">Contact Me</a>
+</div>
+</div>
+<div>
+<div class="portrait-card">
+<img src="rawasen.jpg" alt="Rawasen Munisi">
+<div class="portrait-info">
+<div class="p-name">Rawasen Munisi</div>
+<div class="p-role">RF Optimization Engineer</div>
+</div>
+</div>
+<div class="scope">
+<div class="scope-label"><span>SPECTRUM ANALYZER</span><b>LIVE</b></div>
+
+<div class="tems-chart">
+  <div class="db-scale">
+    <span>0</span><span>-20</span><span>-40</span><span>-60</span><span>-80</span><span>-100</span><span>-120</span>
+  </div>
+  <svg class="tems-svg" viewBox="0 0 400 120" preserveAspectRatio="none">
+    <g class="grid-h">
+      <line x1="0" y1="8" x2="400" y2="8"/>
+      <line x1="0" y1="25.3" x2="400" y2="25.3"/>
+      <line x1="0" y1="42.7" x2="400" y2="42.7"/>
+      <line x1="0" y1="60" x2="400" y2="60"/>
+      <line x1="0" y1="77.3" x2="400" y2="77.3"/>
+      <line x1="0" y1="94.7" x2="400" y2="94.7"/>
+      <line x1="0" y1="112" x2="400" y2="112"/>
+    </g>
+    <g class="grid-v">
+      <line x1="33" y1="0" x2="33" y2="120"/>
+      <line x1="100" y1="0" x2="100" y2="120"/>
+      <line x1="167" y1="0" x2="167" y2="120"/>
+      <line x1="233" y1="0" x2="233" y2="120"/>
+      <line x1="300" y1="0" x2="300" y2="120"/>
+      <line x1="367" y1="0" x2="367" y2="120"/>
+    </g>
+    <path class="noise-floor" d="M0,100 Q20,97 40,101 T80,99 T120,102 T160,98 T200,101 T240,99 T280,102 T320,98 T360,101 T400,99">
+      <animate attributeName="d" dur="4.4s" repeatCount="indefinite"
+        values="M0,100 Q20,97 40,101 T80,99 T120,102 T160,98 T200,101 T240,99 T280,102 T320,98 T360,101 T400,99;
+                M0,101 Q20,99 40,98 T80,102 T120,99 T160,101 T200,98 T240,102 T280,99 T320,101 T360,98 T400,101;
+                M0,100 Q20,97 40,101 T80,99 T120,102 T160,98 T200,101 T240,99 T280,102 T320,98 T360,101 T400,99"/>
+    </path>
+    <path class="trace" d="M0,96 L18,92 33,34 48,90 70,86 100,22 130,88 150,84 167,44 184,86 210,82 233,30 256,84 280,80 300,38 324,82 345,78 367,26 384,80 400,84">
+      <animate attributeName="d" dur="3.6s" repeatCount="indefinite"
+        values="M0,96 L18,92 33,34 48,90 70,86 100,22 130,88 150,84 167,44 184,86 210,82 233,30 256,84 280,80 300,38 324,82 345,78 367,26 384,80 400,84;
+                M0,94 L18,90 33,38 48,88 70,84 100,26 130,86 150,82 167,40 184,88 210,80 233,34 256,86 280,78 300,42 324,80 345,80 367,30 384,82 400,86;
+                M0,96 L18,92 33,34 48,90 70,86 100,22 130,88 150,84 167,44 184,86 210,82 233,30 256,84 280,80 300,38 324,82 345,78 367,26 384,80 400,84"/>
+    </path>
+    <circle class="peak" cx="33" cy="34"><animate attributeName="cy" dur="3.6s" repeatCount="indefinite" values="34;38;34"/></circle>
+    <circle class="peak" cx="100" cy="22"><animate attributeName="cy" dur="3.6s" repeatCount="indefinite" values="22;26;22"/></circle>
+    <circle class="peak" cx="167" cy="44"><animate attributeName="cy" dur="3.6s" repeatCount="indefinite" values="44;40;44"/></circle>
+    <circle class="peak" cx="233" cy="30"><animate attributeName="cy" dur="3.6s" repeatCount="indefinite" values="30;34;30"/></circle>
+    <circle class="peak" cx="300" cy="38"><animate attributeName="cy" dur="3.6s" repeatCount="indefinite" values="38;42;38"/></circle>
+    <circle class="peak" cx="367" cy="26"><animate attributeName="cy" dur="3.6s" repeatCount="indefinite" values="26;30;26"/></circle>
+  </svg>
+</div>
+<div class="freq-scale">
+  <span>700</span><span>900</span><span>1800</span><span>2100</span><span>2600</span><span>3500</span>
+</div>
+<div class="freq-unit">MHz</div>
+
+<div class="kpi-grid">
+  <div class="kpi-col">
+    <div class="kpi-col-label">LTE</div>
+    <div class="kpi-row"><span>RSRP</span><b>-87 dBm</b></div>
+    <div class="kpi-row"><span>RSRQ</span><b>-10 dB</b></div>
+    <div class="kpi-row"><span>SINR</span><b>24 dB</b></div>
+    <div class="kpi-row"><span>PCI</span><b>315</b></div>
+    <div class="kpi-row"><span>EARFCN</span><b>1300</b></div>
+    <div class="kpi-row"><span>Band</span><b>B3</b></div>
+  </div>
+  <div class="kpi-col">
+    <div class="kpi-col-label">5G NR</div>
+    <div class="kpi-row"><span>SS-RSRP</span><b>-82 dBm</b></div>
+    <div class="kpi-row"><span>SS-SINR</span><b>27 dB</b></div>
+    <div class="kpi-row"><span>NR-ARFCN</span><b>636666</b></div>
+    <div class="kpi-row"><span>Band</span><b>n78</b></div>
+  </div>
+</div>
+
+<div class="scope-footer">
+<span>GSM / WCDMA / LTE / 5G NR</span>
+<span>DAR ES SALAAM</span>
+</div>
+</div>
+</div>
+</section>
+
+<section class="about" id="about">
+<div class="section-head">
+<div class="eyebrow">About</div>
+<h2>Engineering Across Two Worlds</h2>
+</div>
+<div class="about-grid">
+<p>With over eight years of experience in <strong>RF Network Optimization</strong>, I continue to deliver high-performance mobile networks while developing modern software solutions. My goal is to bridge telecommunications and software engineering to create technology that is reliable, efficient, and built for the future.</p>
+</div>
+<div class="stats-grid">
+<div class="stat-card">
+<div class="stat-num">8+ Years</div>
+<div class="stat-title">Experience</div>
+<div class="stat-desc">Delivering telecom solutions across multiple markets in Africa.</div>
+</div>
+<div class="stat-card">
+<div class="stat-num">5 Countries</div>
+<div class="stat-title">Worked In</div>
+<div class="stat-desc">Hands-on experience in diverse network environments and technologies.</div>
+</div>
+<div class="stat-card">
+<div class="stat-num">100+ Sites</div>
+<div class="stat-title">Optimized</div>
+<div class="stat-desc">Improving coverage, capacity, and customer experience through RF optimization.</div>
+</div>
+<div class="stat-card">
+<div class="stat-num">2G | 3G | LTE | 5G NR</div>
+<div class="stat-title">Expertise</div>
+<div class="stat-desc">Testing, optimization, and performance analysis across multiple radio technologies.</div>
+</div>
+</div>
+</section>
+
+<section class="whatido" id="whatido">
+<div class="section-head">
+<div class="eyebrow">What I Do</div>
+<h2>Where telecom meets code</h2>
+<p>Hello, I am Rawasen Munisi. I specialize in RF Network Optimization, Drive Testing, and Software Development with more than 8 years of experience delivering world-class telecommunications solutions across Africa. From single site verification and cluster optimization to custom software development, I combine engineering expertise with technology innovation to solve complex challenges.</p>
+</div>
+<div class="whatido-grid">
+<div class="whatido-group">
+<div class="wig-head"><span class="wi-icon">📡</span><span class="wig-title">RF Engineering</span></div>
+<ul class="wig-list">
+<li>RF Network Optimization</li>
+<li>Drive Testing &amp; Benchmarking</li>
+<li>KPI Analysis &amp; Performance Optimization</li>
+</ul>
+</div>
+<div class="whatido-group">
+<div class="wig-head"><span class="wi-icon">📶</span><span class="wig-title">Mobile Technologies</span></div>
+<ul class="wig-list">
+<li>GSM | WCDMA | LTE | 5G NR</li>
+<li>Cloud RAN Operations</li>
+<li>Network Automation</li>
+</ul>
+</div>
+<div class="whatido-group">
+<div class="wig-head"><span class="wi-icon">💻</span><span class="wig-title">Software Engineering</span></div>
+<ul class="wig-list">
+<li>Full-Stack Web Development</li>
+<li>Python Automation &amp; APIs</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="mission" id="mission">
+<div class="mission-card">
+<div class="eyebrow">Mission</div>
+<p>My mission is to bridge telecommunications and software engineering by creating high-performance mobile networks, scalable cloud solutions, and innovative applications that solve real-world challenges.</p>
+<div class="mission-tagline">Optimizing Mobile Networks. Building Smart Software. Delivering Reliable Digital Solutions.</div>
+</div>
+</section>
+
+<section class="bands" id="bands">
+<div class="section-head">
+<div class="eyebrow">Coverage</div>
+<h2>Networks I've worked across</h2>
+<p>Hands-on experience across 2G, 3G, 4G, and 5G mobile networks, delivering RF optimization, drive testing, network integration, and performance improvement projects.</p>
+</div>
+<div class="band-grid">
+<div class="band-card"><div class="band-freq">2G</div><div class="band-name">GSM</div><div class="band-vendors">Voice-era foundation networks. Site commissioning, SSV checklists, integration acceptance.</div></div>
+<div class="band-card"><div class="band-freq">3G</div><div class="band-name">WCDMA</div><div class="band-vendors">Data-capable overlay networks. Drive testing and KPI-driven optimization.</div></div>
+<div class="band-card"><div class="band-freq">4G</div><div class="band-name">LTE</div><div class="band-vendors">Throughput-focused rollouts across Nokia and Huawei RAN equipment.</div></div>
+<div class="band-card"><div class="band-freq">5G</div><div class="band-name">NR</div><div class="band-vendors">Next-gen deployments — Ericsson and Huawei stacks, greenfield site work.</div></div>
+</div>
+</section>
+
+<section class="roaming" id="roaming">
+<div class="section-head">
+<div class="eyebrow">Roaming history</div>
+<h2>Networks I've been on</h2>
+<p>Over the past 8+ years, I've supported major telecom operators across East and Southern Africa through RF optimization, drive testing, and network modernization projects.</p>
+</div>
+<div class="roam-table">
+<div class="roam-row head"><div>Operator</div><div>Country</div><div>Vendor</div><div>Employer</div></div>
+<div class="roam-row current">
+<div class="roam-op">Vodacom <span class="roam-now"><span class="rdot"></span><span class="blink-word">Current</span></span><button type="button" class="id-badge-btn" onclick="document.getElementById('idModal').classList.add('open')">🪪 View ID</button></div>
+<div class="roam-country">Tanzania</div>
+<div class="roam-vendor">Huawei</div>
+<div class="roam-via"><a href="https://www.etelinfra.com/" target="_blank" rel="noopener">ETEL Tanzania</a></div>
+</div>
+<div class="roam-row">
+<div class="roam-op">MTN</div><div class="roam-country">Rwanda</div><div class="roam-vendor">Ericsson</div>
+<div class="roam-via"><a href="https://linkquestglobal.com/" target="_blank" rel="noopener">LinkQuest</a></div>
+</div>
+<div class="roam-row">
+<div class="roam-op">Tigo</div><div class="roam-country">Tanzania</div><div class="roam-vendor">Ericsson</div>
+<div class="roam-via"><a href="https://talkpool.com/" target="_blank" rel="noopener">Talkpool</a></div>
+</div>
+<div class="roam-row">
+<div class="roam-op">TTCL</div><div class="roam-country">Tanzania</div><div class="roam-vendor">Huawei</div>
+<div class="roam-via"><a href="https://linkers.co.tz/" target="_blank" rel="noopener">Linkers</a></div>
+</div>
+<div class="roam-row">
+<div class="roam-op">Vodacom</div><div class="roam-country">Mozambique</div><div class="roam-vendor">Huawei</div>
+<div class="roam-via"><a href="https://maktech.co.tz/" target="_blank" rel="noopener">Maktech</a></div>
+</div>
+<div class="roam-row">
+<div class="roam-op">Vodacom</div><div class="roam-country">South Africa</div><div class="roam-vendor">Nokia</div>
+<div class="roam-via"><a href="https://maktech.co.tz/" target="_blank" rel="noopener">Maktech</a></div>
+</div>
+<div class="roam-row">
+<div class="roam-op">Vodacom</div><div class="roam-country">Tanzania</div><div class="roam-vendor">Nokia</div>
+<div class="roam-via"><a href="https://maktech.co.tz/" target="_blank" rel="noopener">Maktech</a></div>
+</div>
+</div>
+</section>
+
+<section class="clients" id="clients">
+<div class="section-head">
+<div class="eyebrow">Clients &amp; Technology Partners</div>
+<h2>Networks and vendors I've delivered for</h2>
+</div>
+
+<div class="client-group">
+<div class="client-group-label"><i class="dot dot-vendor"></i>Technology Vendors</div>
+<div class="client-grid">
+<div class="client-card"><img src="https://afrotel-group.com/wp-content/uploads/2023/12/Nokia-Log%D0%BE.png" alt="Nokia"></div>
+<div class="client-card"><img src="https://afrotel-group.com/wp-content/uploads/2023/12/Ericsson-logo.png" alt="Ericsson"></div>
+<div class="client-card"><img src="https://afrotel-group.com/wp-content/uploads/2023/12/HUAWEI.png" alt="Huawei"></div>
+<div class="client-card"><img src="aviat.png" alt="Aviat Networks"></div>
+</div>
+</div>
+
+<div class="client-group">
+<div class="client-group-label"><i class="dot dot-operator"></i>Mobile Network Operators</div>
+<div class="client-grid client-grid-badge">
+<div class="client-card client-badge"><img src="mtn.jpg" alt="MTN"></div>
+<div class="client-card client-badge"><img src="tigo.png" alt="Tigo"></div>
+<div class="client-card client-badge"><img src="ttcl-alt.png" alt="TTCL"></div>
+<div class="client-card client-badge"><img src="vodacom.png" alt="Vodacom"></div>
+<div class="client-card client-badge"><img src="yas.jpg" alt="Yas"></div>
+<div class="client-card client-badge"><img src="airtel.png" alt="Airtel"></div>
+</div>
+</div>
+
+<div class="client-group">
+<div class="client-group-label"><i class="dot dot-towerco"></i>Tower Companies</div>
+<div class="client-grid client-grid-badge">
+<div class="client-card client-badge"><img src="toa.png" alt="TOA - Towerco of Africa"></div>
+<div class="client-card client-badge"><img src="minara.png" alt="Minara Tanzania"></div>
+<div class="client-card client-badge"><img src="helios.png" alt="Helios Towers"></div>
+</div>
+</div>
+</section>
+
+<section class="project" id="projects">
+<div class="section-head">
+<div class="eyebrow">Project log</div>
+<h2>Telecom projects I've delivered</h2>
+<p>Drive testing, RF optimization, and network modernization projects delivered across multiple African countries including Tanzania, Rwanda, Mozambique, Ethiopia, Ghana, Botswana, and South Africa using Ericsson, Huawei, and Nokia technologies. Featured below are some of my largest and most impactful projects.</p>
+</div>
+<div class="projects-log">
+<div class="proj-item">
+<div class="proj-top"><div class="proj-title">SSV, Cluster, Customer Complaint &amp; Vodacom Modernization Swap Projects</div><div class="proj-duration">2025 – Present</div></div>
+<div class="proj-meta"><span><span class="m-label">Role</span><span class="m-val">Drive Test Engineer</span></span><span><span class="m-label">Company</span><span class="m-val">ETEL Tanzania</span></span><span><span class="m-label">Customer</span><span class="m-val">Vodacom Tanzania</span></span><span><span class="m-label">Vendor</span><span class="m-val">Huawei</span></span></div>
+<ul class="proj-highlights"><li>Single Site Verification (SSV) and Cluster Drive Testing</li><li>Customer Complaint (CC) Investigations</li><li>Nokia-to-Huawei Equipment Swap Support</li></ul>
+</div>
+<div class="proj-item">
+<div class="proj-top"><div class="proj-title">MTN Rwanda Cluster &amp; Customer Complaint Project</div><div class="proj-duration">2024 – 2025</div></div>
+<div class="proj-meta"><span><span class="m-label">Role</span><span class="m-val">Drive Test Engineer</span></span><span><span class="m-label">Company</span><span class="m-val">LinkQuest Tanzania</span></span><span><span class="m-label">Customer</span><span class="m-val">MTN Rwanda</span></span></div>
+<ul class="proj-highlights"><li>Cluster Drive Testing Across Rwanda</li><li>Customer Complaint Investigations</li><li>Coverage and Quality Issue Resolution</li></ul>
+</div>
+<div class="proj-item">
+<div class="proj-top"><div class="proj-title">Tigo NSB &amp; Modernization Project</div><div class="proj-duration">2023 – 2024</div></div>
+<div class="proj-meta"><span><span class="m-label">Role</span><span class="m-val">Drive Test Engineer</span></span><span><span class="m-label">Company</span><span class="m-val">Talkpool Tanzania</span></span><span><span class="m-label">Customer</span><span class="m-val">Tigo Tanzania</span></span><span><span class="m-label">Vendor</span><span class="m-val">Ericsson</span></span></div>
+<ul class="proj-highlights"><li>Nationwide Modernization and New Site Build (NSB)</li><li>Site Acceptance and Drive Testing</li><li>Coverage Validation and KPI Verification</li></ul>
+</div>
+<div class="proj-item">
+<div class="proj-top"><div class="proj-title">TTCL NSB Project</div><div class="proj-duration">2022 – 2023</div></div>
+<div class="proj-meta"><span><span class="m-label">Role</span><span class="m-val">Drive Test Engineer</span></span><span><span class="m-label">Company</span><span class="m-val">LinkQuest Tanzania</span></span><span><span class="m-label">Customer</span><span class="m-val">TTCL Tanzania</span></span><span><span class="m-label">Vendor</span><span class="m-val">Aviat Networks</span></span></div>
+<ul class="proj-highlights"><li>New Site Build (NSB) Activities</li><li>Post-Integration Verification and Drive Testing</li><li>Coverage Validation and KPI Analysis</li></ul>
+</div>
+<div class="proj-item">
+<div class="proj-top"><div class="proj-title">Tigo Cheetah Optimization Project</div><div class="proj-duration">2021 – 2022</div></div>
+<div class="proj-meta"><span><span class="m-label">Role</span><span class="m-val">Drive Test Engineer</span></span><span><span class="m-label">Company</span><span class="m-val">Talkpool Tanzania</span></span><span><span class="m-label">Customer</span><span class="m-val">Tigo Tanzania</span></span><span><span class="m-label">Vendor</span><span class="m-val">Ericsson</span></span></div>
+<ul class="proj-highlights"><li>Nationwide Cluster Drive Testing</li><li>Optimization Across Tanzania</li><li>Customer Experience Improvement</li></ul>
+</div>
+<div class="proj-item">
+<div class="proj-top"><div class="proj-title">Vodacom Tanzania LTE 700 (L700) Deployment Project</div><div class="proj-duration">2020 – 2021</div></div>
+<div class="proj-meta"><span><span class="m-label">Role</span><span class="m-val">Drive Test Engineer</span></span><span><span class="m-label">Company</span><span class="m-val">MAKTECH Tanzania</span></span><span><span class="m-label">Customer</span><span class="m-val">Vodacom Tanzania</span></span><span><span class="m-label">Vendor</span><span class="m-val">Nokia</span></span></div>
+<ul class="proj-highlights"><li>L700 Site Deployment, Testing and Optimization</li><li>Rural and Indoor Coverage Improvement</li></ul>
+</div>
+<div class="proj-item">
+<div class="proj-top"><div class="proj-title">Julius Nyerere International Airport Terminal 3 IBS Project</div><div class="proj-duration">Additional Project</div></div>
+<div class="proj-meta"><span><span class="m-label">Role</span><span class="m-val">Drive Test Engineer</span></span><span><span class="m-label">Company</span><span class="m-val">MAKTECH Tanzania</span></span><span><span class="m-label">Customer</span><span class="m-val">Tanzania Airports Authority</span></span><span><span class="m-label">Vendor</span><span class="m-val">Nokia</span></span></div>
+<ul class="proj-highlights"><li>Indoor Building Solution (IBS) Deployment</li><li>Indoor Coverage and Performance Optimization</li></ul>
+</div>
+<div class="proj-item">
+<div class="proj-top"><div class="proj-title">Vodacom Mozambique Nationwide Drive Test &amp; Optimization Project</div><div class="proj-duration">2019 – 2020</div></div>
+<div class="proj-meta"><span><span class="m-label">Role</span><span class="m-val">Drive Test Engineer</span></span><span><span class="m-label">Company</span><span class="m-val">MAKTECH LDA Mozambique</span></span><span><span class="m-label">Customer</span><span class="m-val">Vodacom Mozambique</span></span><span><span class="m-label">Vendor</span><span class="m-val">Huawei</span></span></div>
+<ul class="proj-highlights"><li>Nationwide Drive Testing Across Mozambique</li><li>Coverage and Quality Improvement</li><li>Customer Experience Optimization</li></ul>
+</div>
+<div class="proj-item">
+<div class="proj-top"><div class="proj-title">Vodacom Tanzania SSV Project</div><div class="proj-duration">2018 – 2019</div></div>
+<div class="proj-meta"><span><span class="m-label">Role</span><span class="m-val">Drive Test Engineer</span></span><span><span class="m-label">Company</span><span class="m-val">MAKTECH Tanzania</span></span><span><span class="m-label">Customer</span><span class="m-val">Vodacom Tanzania</span></span><span><span class="m-label">Vendor</span><span class="m-val">Nokia</span></span></div>
+<ul class="proj-highlights"><li>Single Site Verification (SSV) for New Sites</li><li>Drive Testing and KPI Verification</li><li>Coverage Validation and Quality Assessment</li></ul>
+</div>
+</div>
+</section>
+
+<section class="handover" id="handover">
+<div class="section-head">
+<div class="eyebrow">In progress</div>
+<h2>Carrier Aggregation: RF Engineering + Software Development</h2>
+<p>In telecom, carrier aggregation combines multiple bands at once for more capacity — no dropped connection, just more throughput. That's this chapter.</p>
+</div>
+<div class="handover-track">
+<div class="node active"><div class="dot"></div><div class="node-label">CARRIER 1</div><div class="node-title">RF engineering, ongoing</div></div>
+<div class="node active"><div class="dot"></div><div class="node-label">CARRIER 2</div><div class="node-title">Python fundamentals</div></div>
+</div>
+<div class="handover-note">Currently on <code>main</code> — expanding into software engineering through Python, CS50P, and hands-on projects while continuing full-time RF engineering. The goal is to build intelligent tools that improve telecom operations through automation and data analysis.</div>
+</section>
+
+<section class="contact" id="contact">
+<div class="eyebrow">Get in touch</div>
+<h2>Open to conversations about telecom, code, or the space in between.</h2>
+<div class="contact-links">
+<div class="contact-card">
+<div class="contact-card-icon">
+<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M4 6l8 7 8-7"/></svg>
+</div>
+<div class="contact-card-text">
+<a href="mailto:info@rawasenmunisi.com" class="contact-card-primary">info@rawasenmunisi.com</a>
+</div>
+</div>
+<div class="contact-card-simple">
+<div class="contact-card-icon">
+<svg viewBox="0 0 24 24" fill="var(--cyan)" stroke="none"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM8.34 18H5.67V9.75h2.67V18zM7 8.6c-.86 0-1.55-.7-1.55-1.55S6.14 5.5 7 5.5s1.55.7 1.55 1.55S7.86 8.6 7 8.6zM18.5 18h-2.67v-4.34c0-1.1-.02-2.5-1.52-2.5-1.53 0-1.76 1.2-1.76 2.43V18h-2.67V9.75h2.56v1.13h.04c.36-.67 1.23-1.38 2.54-1.38 2.71 0 3.21 1.79 3.21 4.11V18z"/></svg>
+</div>
+<a href="https://www.linkedin.com/in/rawasenmunisi/" target="_blank" rel="noopener">linkedin.com/in/rawasenmunisi</a>
+</div>
+<div class="contact-card-simple">
+<div class="contact-card-icon">
+<svg viewBox="0 0 24 24" fill="var(--beacon)" stroke="none"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.38 5.07L2 22l5.09-1.33C8.55 21.5 10.24 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm5.2 14.15c-.22.62-1.28 1.18-1.77 1.24-.45.06-1.02.09-1.65-.1-.38-.12-.86-.28-1.48-.55-2.6-1.12-4.3-3.74-4.43-3.91-.13-.17-1.06-1.41-1.06-2.69 0-1.28.67-1.9.91-2.16.24-.26.52-.33.7-.33.17 0 .35 0 .5.01.16.01.38-.06.59.45.22.53.75 1.83.81 1.96.06.13.1.29.02.46-.08.17-.13.28-.25.43-.13.15-.27.34-.38.46-.13.13-.26.27-.11.53.15.26.67 1.1 1.43 1.78 1 .89 1.83 1.17 2.09 1.3.26.13.41.11.56-.07.15-.17.65-.75.82-1.01.17-.26.34-.22.57-.13.24.09 1.5.71 1.76.84.26.13.43.19.5.3.06.11.06.61-.16 1.19z"/></svg>
+</div>
+<a href="https://wa.me/255763062001" target="_blank" rel="noopener">WhatsApp: +255 763 062 001</a>
+</div>
+<div class="contact-card-simple">
+<div class="contact-card-icon">
+<svg viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-7.5 8-13a8 8 0 1 0-16 0c0 5.5 8 13 8 13z"/><circle cx="12" cy="9" r="3"/></svg>
+</div>
+<a href="#">Dar es Salaam, Tanzania</a>
+</div>
+</div>
+</section>
+
+<footer>
+<span>© 2026 Rawasen Munisi — RawasenMunisi.com</span>
+<span>RF ENGINEER — KARIBU SANA</span>
+<span>Website by RAWASEN TECH</span>
+</footer>
+
+<div class="id-modal-overlay" id="idModal">
+<div class="id-card id-card-photo-mode">
+<button type="button" class="id-card-close" onclick="document.getElementById('idModal').classList.remove('open')">✕</button>
+<img src="etel-id-card.png" alt="Rawasen Munisi — ETEL Employee ID" class="id-card-real-img">
+</div>
+</div>
+<script>
+document.getElementById('idModal').addEventListener('click', function(e){
+  if(e.target === this){ this.classList.remove('open'); }
+});
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape'){ document.getElementById('idModal').classList.remove('open'); }
+});
+
+/* ---- Theme toggle ---- */
+(function(){
+  var root = document.documentElement;
+  var btn = document.getElementById('themeToggle');
+  if(!btn) return;
+  btn.addEventListener('click', function(){
+    var isLight = root.getAttribute('data-theme') === 'light';
+    if(isLight){
+      root.removeAttribute('data-theme');
+      try{ localStorage.setItem('rm-theme','dark'); }catch(e){}
+    }else{
+      root.setAttribute('data-theme','light');
+      try{ localStorage.setItem('rm-theme','light'); }catch(e){}
+    }
+  });
+})();
+</script>
+</body>
+</html>
