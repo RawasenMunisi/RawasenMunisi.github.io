@@ -66,7 +66,12 @@ html[data-theme="light"] header.nav{
   --line: rgba(237,239,245,0.09);
   color:#EDEFF5;
 }
-/* Vendor logos now display in full color in both themes (see .client-card img below) */
+/* Vendor logos: monochrome/grayscale treatment, tuned differently per theme
+   so they read clearly on both a dark panel and a light panel */
+html[data-theme="light"] .client-card img{
+  filter:grayscale(1) brightness(0.82) contrast(1.15); opacity:0.62;
+}
+html[data-theme="light"] .client-card:hover img{ filter:none; opacity:1; }
 *{box-sizing:border-box; margin:0; padding:0;}
 html{scroll-behavior:smooth;}
 body{
@@ -565,14 +570,11 @@ h1.headline .accent{ color:var(--cyan); }
 }
 .client-card:hover{ border-color:var(--cyan); transform:translateY(-2px); }
 .client-card img{
-  max-width:100%; max-height:26px; width:auto; height:auto;
-  opacity:0.94;
-  background:#FFFFFF;
-  padding:9px 16px;
-  border-radius:6px;
-  transition:opacity .2s, transform .2s;
+  max-width:100%; max-height:34px; width:auto; height:auto;
+  filter:grayscale(1) brightness(1.6) contrast(0.9); opacity:0.72;
+  transition:filter .2s, opacity .2s;
 }
-.client-card:hover img{ opacity:1; transform:scale(1.03); }
+.client-card:hover img{ filter:none; opacity:1; }
 .client-card.client-badge{
   padding:0; overflow:hidden; border-radius:8px; min-height:78px;
 }
