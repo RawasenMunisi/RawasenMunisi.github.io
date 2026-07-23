@@ -206,12 +206,13 @@ section{ position:relative; z-index:2; padding:0 6vw; }
 .hero::before{
   content:'';
   position:absolute; top:64px; left:0; right:0; bottom:0; z-index:-1;
+  --tower-bg-pos-x:50%;
   background-image:
     linear-gradient(180deg, rgba(6,12,28,0.15) 0%, rgba(8,14,30,0.40) 55%, rgba(10,14,26,0.80) 100%),
     linear-gradient(100deg, rgba(10,14,26,0.35) 0%, rgba(10,14,26,0.08) 40%, rgba(10,14,26,0.35) 100%),
     url('rawasen-hero-tower-night.jpg');
   background-size:cover;
-  background-position:center top;
+  background-position:var(--tower-bg-pos-x) top;
   filter:saturate(1.05);
 }
 .eyebrow{
@@ -694,11 +695,19 @@ footer{ padding:26px 6vw; border-top:1px solid var(--line); display:flex; justif
   .portrait-info .p-name, .portrait-info .p-role{ white-space:normal; }
   .tower-light{ top:7.1%; left:49.1%; }
   .hero::before{
+    top:64px; bottom:auto; height:420px;
+    --tower-bg-pos-x:78%;
     background-image:
       linear-gradient(180deg, rgba(6,12,28,0.18) 0%, rgba(8,14,30,0.45) 55%, rgba(10,14,26,0.85) 100%),
       linear-gradient(100deg, rgba(10,14,26,0.35) 0%, rgba(10,14,26,0.10) 40%, rgba(10,14,26,0.35) 100%),
-      url('rawasen_tower.jpg');
-    background-position:center top;
+      url('rawasen-hero-tower-night.jpg');
+    background-position:var(--tower-bg-pos-x) top;
+  }
+  html[data-theme="light"] .hero::before{
+    background-image:
+      linear-gradient(180deg, rgba(243,245,250,0.20) 0%, rgba(243,245,250,0.42) 55%, rgba(243,245,250,0.68) 100%),
+      linear-gradient(100deg, rgba(243,245,250,0.20) 0%, rgba(243,245,250,0.04) 40%, rgba(243,245,250,0.20) 100%),
+      url('rawasen-hero-tower-day.jpg');
   }
 }
 @media (max-width: 700px){
@@ -1141,15 +1150,21 @@ document.addEventListener('keydown', function(e){
 
   function position(){
     var heroRect = hero.getBoundingClientRect();
+    var beforeStyle = getComputedStyle(hero, '::before');
+    var pTop = parseFloat(beforeStyle.top) || PHOTO_TOP_OFFSET;
+    var pHeight = parseFloat(beforeStyle.height);
+    var posXRaw = beforeStyle.getPropertyValue('--tower-bg-pos-x').trim();
+    var posXPct = posXRaw.indexOf('%') > -1 ? parseFloat(posXRaw) : 50;
+    if(isNaN(posXPct)) posXPct = 50;
     var containerW = heroRect.width;
-    var containerH = heroRect.height - PHOTO_TOP_OFFSET;
+    var containerH = (pHeight && pHeight > 0) ? pHeight : (heroRect.height - pTop);
     if(containerW <= 0 || containerH <= 0) return;
     var scale = Math.max(containerW / IMG_W, containerH / IMG_H);
     var dispW = IMG_W * scale, dispH = IMG_H * scale;
-    var offsetX = (dispW - containerW) / 2;
-    var offsetY = 0; // background-position: center top -> anchored at top
+    var offsetX = (dispW - containerW) * (posXPct / 100);
+    var offsetY = 0; // background-position-y: top -> anchored at top
     var x = (LIGHT_X * scale) - offsetX;
-    var y = PHOTO_TOP_OFFSET + (LIGHT_Y * scale) - offsetY;
+    var y = pTop + (LIGHT_Y * scale) - offsetY;
     dot.style.left = x + 'px';
     dot.style.top = y + 'px';
   }
