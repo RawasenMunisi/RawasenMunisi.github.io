@@ -172,7 +172,7 @@ section{ position:relative; z-index:2; padding:0 6vw; }
   position:absolute;
   top:11.3%;
   left:78.5%;
-  transform:translateX(-50%);
+  transform:translate(-50%,-50%);
   width:14px; height:14px; border-radius:50%;
   background:#FF2D1F;
   z-index:0;
@@ -1125,6 +1125,38 @@ document.getElementById('idModal').addEventListener('click', function(e){
 document.addEventListener('keydown', function(e){
   if(e.key === 'Escape'){ document.getElementById('idModal').classList.remove('open'); }
 });
+
+/* ---- Tower light: position precisely on the mast tip regardless of
+   viewport size, using the real photo's pixel coordinates and the
+   same math the browser uses for background-size:cover. ---- */
+(function(){
+  var dot = document.querySelector('.tower-light');
+  var hero = document.querySelector('.hero');
+  if(!dot || !hero) return;
+  // Coordinates of the mast tip in the 1717x916 source photo (same for
+  // both day/night versions since they share identical composition).
+  var IMG_W = 1717, IMG_H = 916;
+  var LIGHT_X = 1308, LIGHT_Y = 40;
+  var PHOTO_TOP_OFFSET = 64; // matches .hero::before{ top:64px }
+
+  function position(){
+    var heroRect = hero.getBoundingClientRect();
+    var containerW = heroRect.width;
+    var containerH = heroRect.height - PHOTO_TOP_OFFSET;
+    if(containerW <= 0 || containerH <= 0) return;
+    var scale = Math.max(containerW / IMG_W, containerH / IMG_H);
+    var dispW = IMG_W * scale, dispH = IMG_H * scale;
+    var offsetX = (dispW - containerW) / 2;
+    var offsetY = 0; // background-position: center top -> anchored at top
+    var x = (LIGHT_X * scale) - offsetX;
+    var y = PHOTO_TOP_OFFSET + (LIGHT_Y * scale) - offsetY;
+    dot.style.left = x + 'px';
+    dot.style.top = y + 'px';
+  }
+  position();
+  window.addEventListener('resize', position);
+  window.addEventListener('orientationchange', position);
+})();
 
 /* ---- Theme toggle ---- */
 (function(){
