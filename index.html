@@ -866,17 +866,17 @@ RAWASEN
 </div>
 <div class="stats-grid">
 <div class="stat-card">
-<div class="stat-num">8+ Years</div>
+<div class="stat-num"><span class="stat-num-value" data-count-to="8">0</span><span class="stat-num-suffix">+ Years</span></div>
 <div class="stat-title">Experience</div>
 <div class="stat-desc">Delivering telecom solutions across multiple markets in Africa.</div>
 </div>
 <div class="stat-card">
-<div class="stat-num">5 Countries</div>
+<div class="stat-num"><span class="stat-num-value" data-count-to="5">0</span><span class="stat-num-suffix"> Countries</span></div>
 <div class="stat-title">Worked In</div>
 <div class="stat-desc">Hands-on experience in diverse network environments and technologies.</div>
 </div>
 <div class="stat-card">
-<div class="stat-num">100+ Sites</div>
+<div class="stat-num"><span class="stat-num-value" data-count-to="500">0</span><span class="stat-num-suffix">+ Sites</span></div>
 <div class="stat-title">Optimized</div>
 <div class="stat-desc">Improving coverage, capacity, and customer experience through RF optimization.</div>
 </div>
@@ -1144,6 +1144,38 @@ document.getElementById('idModal').addEventListener('click', function(e){
 document.addEventListener('keydown', function(e){
   if(e.key === 'Escape'){ document.getElementById('idModal').classList.remove('open'); }
 });
+
+/* ---- Stat numbers: count up from 0 when scrolled into view ---- */
+(function(){
+  var nums = document.querySelectorAll('.stat-num-value[data-count-to]');
+  if(!nums.length) return;
+  function animateCount(el){
+    var target = parseInt(el.getAttribute('data-count-to'), 10) || 0;
+    var duration = 1400;
+    var start = null;
+    function step(ts){
+      if(start === null) start = ts;
+      var progress = Math.min((ts - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+      el.textContent = Math.round(eased * target);
+      if(progress < 1){
+        requestAnimationFrame(step);
+      } else {
+        el.textContent = target;
+      }
+    }
+    requestAnimationFrame(step);
+  }
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        animateCount(entry.target);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  nums.forEach(function(el){ observer.observe(el); });
+})();
 
 /* ---- Tower light: position precisely on the mast tip regardless of
    viewport size, using the real photo's pixel coordinates and the
