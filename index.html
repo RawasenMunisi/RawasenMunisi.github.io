@@ -173,20 +173,22 @@ section{ position:relative; z-index:2; padding:0 6vw; }
   top:11.7%;
   left:78.5%;
   transform:translateX(-50%);
-  width:7px; height:7px; border-radius:50%;
-  background:#FF3B30;
+  width:8px; height:8px; border-radius:50%;
+  background:#FF2D1F;
   z-index:0;
   pointer-events:none;
-  animation: towerBlink 1.6s ease-in-out infinite;
+  animation: towerBlink 1.3s ease-in-out infinite;
 }
 @keyframes towerBlink{
   0%, 100%{
     opacity:1;
-    box-shadow:0 0 4px 2px rgba(255,59,48,0.8);
+    background:#FF2D1F;
+    box-shadow:0 0 10px 4px rgba(255,45,31,1), 0 0 22px 10px rgba(255,45,31,0.75), 0 0 38px 18px rgba(255,45,31,0.4);
   }
   50%{
-    opacity:0.35;
-    box-shadow:0 0 2px 1px rgba(255,59,48,0.3);
+    opacity:0.25;
+    background:#B71C13;
+    box-shadow:0 0 3px 1px rgba(255,45,31,0.35);
   }
 }
 
