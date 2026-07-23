@@ -23,6 +23,7 @@
   --bg-deep:#0A0E1A;
   --bg-deep-rgb:10,14,26;
   --bg-panel:#10172B;
+  --bg-panel-rgb:16,23,43;
   --bg-panel-2:#151D36;
   --beacon:#1FE873;
   --cyan:#4CD9E8;
@@ -35,6 +36,7 @@
   --bg-deep:#F3F5FA;
   --bg-deep-rgb:243,245,250;
   --bg-panel:#FFFFFF;
+  --bg-panel-rgb:255,255,255;
   --bg-panel-2:#EBEFF6;
   --beacon:#0E9F52;
   --cyan:#0891A8;
@@ -50,10 +52,6 @@
    inherits the *computed* color from <body>, not a re-evaluated
    var(--text-primary) — so overriding the custom property alone isn't
    enough here. */
-html[data-theme="light"] .hero,
-html[data-theme="light"] .whatido,
-html[data-theme="light"] .mission,
-html[data-theme="light"] .roaming,
 html[data-theme="light"] header.nav{
   --bg-deep:#0A0E1A;
   --bg-deep-rgb:10,14,26;
@@ -72,12 +70,28 @@ html[data-theme="light"] .client-card img{
   filter:grayscale(1) brightness(0.82) contrast(1.15); opacity:0.62;
 }
 html[data-theme="light"] .client-card:hover img{ filter:none; opacity:1; }
-/* Light mode: swap the night drive-test photo for the daytime version */
-html[data-theme="light"] .whatido,
+/* Light mode: swap the night drive-test photo for the daytime version,
+   and lighten the overlay since Mission text is now dark */
 html[data-theme="light"] .mission{
   background-image:
-    linear-gradient(rgba(10,14,26,0.55), rgba(10,14,26,0.55)),
+    linear-gradient(rgba(243,245,250,0.75), rgba(243,245,250,0.75)),
     url("rawasen-drivetest-day.jpg");
+}
+/* What I Do now follows light mode fully, so the overlay needs to lighten
+   the photo (rather than darken it) since its text switches to dark */
+html[data-theme="light"] .whatido{
+  background-image:
+    linear-gradient(rgba(243,245,250,0.82), rgba(243,245,250,0.82)),
+    url("rawasen-drivetest-day.jpg");
+}
+/* Hero now follows light mode too — lighten the tower photo overlay so
+   dark text stays legible instead of the dark-on-dark treatment */
+html[data-theme="light"] .hero::before{
+  background-image:
+    linear-gradient(180deg, rgba(243,245,250,0.20) 0%, rgba(243,245,250,0.42) 55%, rgba(243,245,250,0.68) 100%),
+    linear-gradient(100deg, rgba(243,245,250,0.20) 0%, rgba(243,245,250,0.04) 40%, rgba(243,245,250,0.20) 100%),
+    url('rawasen_tower_final.jpg');
+  filter:saturate(1.15) contrast(1.05);
 }
 *{box-sizing:border-box; margin:0; padding:0;}
 html{scroll-behavior:smooth;}
@@ -451,10 +465,10 @@ html[data-theme="light"] .contact{
   filter:saturate(1.05);
 }
 .roam-table{ border:1px solid var(--line); border-radius:8px; overflow:hidden; }
-.roam-row{ display:grid; grid-template-columns: 1.2fr 1fr 1fr 1.3fr; padding:17px 22px; border-bottom:1px solid var(--line); align-items:center; gap:16px; background:rgba(16,23,43,0.65); }
+.roam-row{ display:grid; grid-template-columns: 1.2fr 1fr 1fr 1.3fr; padding:17px 22px; border-bottom:1px solid var(--line); align-items:center; gap:16px; background:rgba(var(--bg-panel-rgb),0.65); }
 .roam-row:last-child{ border-bottom:none; }
 .roam-row.head{ background:var(--bg-panel); font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.06em; }
-.roam-row.current{ background:rgba(21,29,54,0.85); }
+.roam-row.current{ background:rgba(var(--bg-panel-rgb),0.9); }
 .roam-op{ font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:14.5px; }
 .roam-country{ color:var(--text-muted); font-size:13.5px; }
 .roam-vendor{ font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--cyan); }
