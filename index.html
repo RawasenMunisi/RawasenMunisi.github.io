@@ -6,11 +6,10 @@
 <title>Rawasen Munisi — RF Engineer &amp; Software Developer</title>
 <script>
 (function(){
-  try{
-    var saved = localStorage.getItem('rm-theme');
-    var theme = saved || 'dark';
-    if(theme === 'light'){ document.documentElement.setAttribute('data-theme','light'); }
-  }catch(e){}
+  // Always start in dark mode on every fresh page load/visit.
+  // The theme toggle can still switch to light for the current
+  // session, but it will not be remembered on the next visit.
+  document.documentElement.removeAttribute('data-theme');
 })();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1233,10 +1232,8 @@ document.addEventListener('keydown', function(e){
     var isLight = root.getAttribute('data-theme') === 'light';
     if(isLight){
       root.removeAttribute('data-theme');
-      try{ localStorage.setItem('rm-theme','dark'); }catch(e){}
     }else{
       root.setAttribute('data-theme','light');
-      try{ localStorage.setItem('rm-theme','light'); }catch(e){}
     }
   });
 })();
