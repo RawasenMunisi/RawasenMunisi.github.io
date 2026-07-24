@@ -6,10 +6,15 @@
 <title>Rawasen Munisi — RF Engineer &amp; Software Developer</title>
 <script>
 (function(){
-  // Always start in dark mode on every fresh page load/visit.
-  // The theme toggle can still switch to light for the current
-  // session, but it will not be remembered on the next visit.
-  document.documentElement.removeAttribute('data-theme');
+  // Follow the visitor's device/system theme preference on every
+  // fresh page load. The theme toggle can still override this for
+  // the current session, but it will not be remembered on the next visit.
+  var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if(prefersDark){
+    document.documentElement.removeAttribute('data-theme');
+  }else{
+    document.documentElement.setAttribute('data-theme','light');
+  }
 })();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
