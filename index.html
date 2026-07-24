@@ -129,10 +129,11 @@ header.nav{
   display:flex; justify-content:space-between; align-items:center;
   gap:18px;
   padding:22px 6vw;
-  background:linear-gradient(180deg, rgba(var(--bg-deep-rgb),0.94), rgba(var(--bg-deep-rgb),0));
-  backdrop-filter: blur(4px);
+  background:linear-gradient(180deg, rgba(var(--bg-deep-rgb),0.94), rgba(var(--bg-deep-rgb),0.55));
+  backdrop-filter: blur(8px);
   transition: background-color .35s ease;
 }
+.nav-mark{ text-shadow: 0 1px 4px rgba(0,0,0,0.55); }
 .nav-mark{
   font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:14.5px;
   letter-spacing:0.04em;
@@ -148,7 +149,7 @@ header.nav{
 .signal-bars span:nth-child(3){ height:11px; animation-delay:0.3s; }
 .signal-bars span:nth-child(4){ height:14px; animation-delay:0.45s; }
 @keyframes pulse{ 0%,100%{ opacity:0.35; } 50%{ opacity:1; } }
-nav.links{ display:flex; gap:30px; font-size:12.5px; color:var(--text-muted); font-family:'IBM Plex Mono', monospace; }
+nav.links{ display:flex; gap:30px; font-size:12.5px; color:var(--text-muted); font-family:'IBM Plex Mono', monospace; text-shadow: 0 1px 4px rgba(0,0,0,0.5); }
 nav.links a:hover{ color:var(--cyan); }
 
 .theme-toggle{
