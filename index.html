@@ -629,21 +629,17 @@ html[data-theme="light"] .roaming::before{
 .dot-vendor{ background:var(--beacon); }
 .dot-operator{ background:var(--cyan); }
 .dot-towerco{ background:var(--towerco); }
-
 .client-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; }
-.client-grid-badge{ grid-template-columns:repeat(6, 1fr); gap:0; border:1px solid var(--line); border-radius:8px; overflow:hidden; }
-.client-grid-badge.client-grid-badge-5{ grid-template-columns:repeat(5, 1fr); }
-.client-grid-badge .client-card.client-badge{ border-radius:0; border:none; }
+.client-grid-badge{ grid-template-columns:repeat(6, 1fr); }
 .client-card{
   background:var(--bg-panel); border:1px solid var(--line); border-radius:8px;
-  padding:10px 14px; display:flex; align-items:center; justify-content:center;
-  min-height:104px; transition:border-color .2s, transform .2s, background-color .35s ease;
+  padding:24px 20px; display:flex; align-items:center; justify-content:center;
+  min-height:88px; transition:border-color .2s, transform .2s, background-color .35s ease;
 }
 .client-card:hover{ border-color:var(--cyan); transform:translateY(-2px); }
-.client-grid-badge .client-card.client-badge:hover{ transform:none; }
 .client-card img{
-  max-width:96%; max-height:80px; width:auto; height:auto;
-  filter:grayscale(1) brightness(1.25) contrast(1.3); opacity:0.88;
+  max-width:100%; max-height:34px; width:auto; height:auto;
+  filter:grayscale(1) brightness(1.6) contrast(0.9); opacity:0.72;
   transition:filter .2s, opacity .2s;
 }
 .client-card:hover img{ filter:none; opacity:1; }
@@ -658,7 +654,6 @@ html[data-theme="light"] .roaming::before{
 .wm-huawei{ font-weight:800; letter-spacing:0.08em; font-size:19px; }
 .client-card.client-badge{
   padding:0; overflow:hidden; border-radius:8px; min-height:78px;
-  aspect-ratio: 2.15 / 1;
 }
 .client-card.client-badge img{
   max-height:none; width:100%; height:100%; object-fit:cover;
@@ -1050,7 +1045,7 @@ RAWASEN
 
 <div class="client-group">
 <div class="client-group-label"><i class="dot dot-towerco"></i>Tower Companies</div>
-<div class="client-grid client-grid-badge client-grid-badge-5">
+<div class="client-grid client-grid-badge">
 <div class="client-card client-badge"><img src="toa.png" alt="TOA - Towerco of Africa"></div>
 <div class="client-card client-badge"><img src="minara.png" alt="Minara Tanzania"></div>
 <div class="client-card client-badge"><img src="helios.png" alt="Helios Towers"></div>
