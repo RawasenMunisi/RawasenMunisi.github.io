@@ -631,7 +631,8 @@ html[data-theme="light"] .roaming::before{
 .dot-towerco{ background:var(--towerco); }
 
 .client-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; }
-.client-grid-badge{ grid-template-columns:repeat(6, 1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+.client-grid-badge{ grid-template-columns:repeat(6, 1fr); gap:0; border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+.client-grid-badge.client-grid-badge-5{ grid-template-columns:repeat(5, 1fr); }
 .client-grid-badge .client-card.client-badge{ border-radius:0; border:none; }
 .client-card{
   background:var(--bg-panel); border:1px solid var(--line); border-radius:8px;
@@ -1049,7 +1050,7 @@ RAWASEN
 
 <div class="client-group">
 <div class="client-group-label"><i class="dot dot-towerco"></i>Tower Companies</div>
-<div class="client-grid client-grid-badge">
+<div class="client-grid client-grid-badge client-grid-badge-5">
 <div class="client-card client-badge"><img src="toa.png" alt="TOA - Towerco of Africa"></div>
 <div class="client-card client-badge"><img src="minara.png" alt="Minara Tanzania"></div>
 <div class="client-card client-badge"><img src="helios.png" alt="Helios Towers"></div>
