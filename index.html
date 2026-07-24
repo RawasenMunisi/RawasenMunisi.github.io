@@ -68,6 +68,10 @@ html[data-theme="light"] header.nav{
 html[data-theme="light"] .client-card img{
   filter:grayscale(1) brightness(0.82) contrast(1.15); opacity:0.62;
 }
+html[data-theme="light"] .client-card.client-badge img{
+  filter:none; opacity:0.94;
+}
+html[data-theme="light"] .client-card.client-badge:hover img{ opacity:1; }
 html[data-theme="light"] .client-card:hover img{ filter:none; opacity:1; }
 /* Light mode: swap the night drive-test photo for the daytime version,
    and lighten the overlay since Mission text is now dark */
