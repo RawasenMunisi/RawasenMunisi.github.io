@@ -1195,10 +1195,12 @@ document.addEventListener('keydown', function(e){
   // Coordinates of the mast tip in the 1717x916 source photo (same for
   // both day/night versions since they share identical composition).
   var IMG_W = 1717, IMG_H = 916;
-  var LIGHT_X = 1300, LIGHT_Y = 58;
+  var LIGHT_X_DARK = 1300, LIGHT_X_LIGHT = 1305, LIGHT_Y = 58;
   var PHOTO_TOP_OFFSET = 64; // matches .hero::before{ top:64px }
 
   function position(){
+    var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    var LIGHT_X = isLight ? LIGHT_X_LIGHT : LIGHT_X_DARK;
     var heroRect = hero.getBoundingClientRect();
     var beforeStyle = getComputedStyle(hero, '::before');
     var pTop = parseFloat(beforeStyle.top) || PHOTO_TOP_OFFSET;
@@ -1235,6 +1237,7 @@ document.addEventListener('keydown', function(e){
     }else{
       root.setAttribute('data-theme','light');
     }
+    window.dispatchEvent(new Event('resize'));
   });
 })();
 </script>
