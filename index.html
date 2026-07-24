@@ -30,6 +30,7 @@
   --bg-panel-rgb:36,47,82;
   --bg-panel-2:#2B375E;
   --beacon:#1FE873;
+  --beacon-rgb:31,232,115;
   --cyan:#4CD9E8;
   --text-primary:#EDEFF5;
   --text-muted:#9DAEC9;
@@ -37,16 +38,17 @@
   color-scheme: dark;
 }
 :root[data-theme="light"]{
-  --bg-deep:#F3F5FA;
-  --bg-deep-rgb:243,245,250;
-  --bg-panel:#FFFFFF;
-  --bg-panel-rgb:255,255,255;
-  --bg-panel-2:#EBEFF6;
+  --bg-deep:#D9DEEA;
+  --bg-deep-rgb:217,222,234;
+  --bg-panel:#EEF0F6;
+  --bg-panel-rgb:238,240,246;
+  --bg-panel-2:#CFD5E4;
   --beacon:#0E9F52;
+  --beacon-rgb:14,159,82;
   --cyan:#0891A8;
   --text-primary:#12172A;
   --text-muted:#5C6478;
-  --line: rgba(18,23,42,0.12);
+  --line: rgba(18,23,42,0.16);
   color-scheme: light;
 }
 /* Photo-background sections (and the fixed header that overlays them)
@@ -234,13 +236,13 @@ section{ position:relative; z-index:2; padding:0 6vw; }
 .eyebrow::before{
   content:''; width:7px; height:7px; border-radius:50%;
   background:var(--beacon);
-  box-shadow:0 0 0 0 rgba(31,232,115,0.6);
+  box-shadow:0 0 8px 2px rgba(var(--beacon-rgb),0.9), 0 0 0 0 rgba(var(--beacon-rgb),0.85);
   animation: beacon 2s infinite;
 }
 @keyframes beacon{
-  0%{ box-shadow:0 0 0 0 rgba(31,232,115,0.6); }
-  70%{ box-shadow:0 0 0 10px rgba(31,232,115,0); }
-  100%{ box-shadow:0 0 0 0 rgba(31,232,115,0); }
+  0%{ box-shadow:0 0 8px 2px rgba(var(--beacon-rgb),0.9), 0 0 0 0 rgba(var(--beacon-rgb),0.85); }
+  70%{ box-shadow:0 0 8px 2px rgba(var(--beacon-rgb),0.9), 0 0 0 14px rgba(var(--beacon-rgb),0); }
+  100%{ box-shadow:0 0 8px 2px rgba(var(--beacon-rgb),0.9), 0 0 0 0 rgba(var(--beacon-rgb),0); }
 }
 @keyframes textBlink{
   0%,100%{ opacity:1; }
@@ -688,7 +690,7 @@ html[data-theme="light"] .roaming::before{
 .contact-card:hover{ border-color:var(--cyan); box-shadow:0 0 24px rgba(76,217,232,0.12); }
 .contact-card-icon{
   width:34px; height:34px; flex:none; border-radius:8px;
-  background:rgba(31,232,115,0.1); border:1px solid rgba(31,232,115,0.3);
+  background:rgba(var(--beacon-rgb),0.14); border:1px solid rgba(var(--beacon-rgb),0.4);
   display:flex; align-items:center; justify-content:center;
 }
 .contact-card-icon svg{ width:16px; height:16px; stroke:var(--beacon); }
