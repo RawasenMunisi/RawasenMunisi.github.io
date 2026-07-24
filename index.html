@@ -6,15 +6,10 @@
 <title>Rawasen Munisi — RF Engineer &amp; Software Developer</title>
 <script>
 (function(){
-  // Follow the visitor's device/system theme preference on every
-  // fresh page load. The theme toggle can still override this for
-  // the current session, but it will not be remembered on the next visit.
-  var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  if(prefersDark){
-    document.documentElement.removeAttribute('data-theme');
-  }else{
-    document.documentElement.setAttribute('data-theme','light');
-  }
+  // Always start in dark mode on every fresh page load/visit.
+  // The theme toggle can still switch to light for the current
+  // session, but it will not be remembered on the next visit.
+  document.documentElement.removeAttribute('data-theme');
 })();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -75,6 +70,10 @@ html[data-theme="light"] header.nav{
 html[data-theme="light"] .client-card img{
   filter:grayscale(1) brightness(0.82) contrast(1.15); opacity:0.62;
 }
+html[data-theme="light"] .client-card .wordmark{
+  filter:none; opacity:0.68; color:var(--text-primary);
+}
+html[data-theme="light"] .client-card:hover .wordmark{ opacity:1; color:var(--cyan); }
 html[data-theme="light"] .client-card.client-badge img{
   filter:none; opacity:0.94;
 }
@@ -645,6 +644,15 @@ html[data-theme="light"] .roaming::before{
   transition:filter .2s, opacity .2s;
 }
 .client-card:hover img{ filter:none; opacity:1; }
+.client-card .wordmark{
+  font-family:'Space Grotesk', sans-serif; font-weight:700;
+  font-size:19px; letter-spacing:0.01em; color:var(--text-primary);
+  opacity:0.72; filter:grayscale(1); transition:filter .2s, opacity .2s, color .2s;
+}
+.client-card:hover .wordmark{ filter:none; opacity:1; color:var(--cyan); }
+.wm-nokia{ font-weight:700; letter-spacing:0.04em; font-size:22px; }
+.wm-ericsson{ font-weight:400; letter-spacing:0.005em; font-size:22px; text-transform:lowercase; }
+.wm-huawei{ font-weight:800; letter-spacing:0.08em; font-size:19px; }
 .client-card.client-badge{
   padding:0; overflow:hidden; border-radius:8px; min-height:78px;
 }
@@ -1017,9 +1025,9 @@ RAWASEN
 <div class="client-group">
 <div class="client-group-label"><i class="dot dot-vendor"></i>Technology Vendors</div>
 <div class="client-grid">
-<div class="client-card"><img src="https://afrotel-group.com/wp-content/uploads/2023/12/Nokia-Log%D0%BE.png" alt="Nokia"></div>
-<div class="client-card"><img src="https://afrotel-group.com/wp-content/uploads/2023/12/Ericsson-logo.png" alt="Ericsson"></div>
-<div class="client-card"><img src="https://afrotel-group.com/wp-content/uploads/2023/12/HUAWEI.png" alt="Huawei"></div>
+<div class="client-card"><img src="nokia.png" alt="Nokia"></div>
+<div class="client-card"><img src="ericsson.png" alt="Ericsson"></div>
+<div class="client-card"><img src="huawei.png" alt="Huawei"></div>
 <div class="client-card"><img src="aviat.png" alt="Aviat Networks"></div>
 </div>
 </div>
