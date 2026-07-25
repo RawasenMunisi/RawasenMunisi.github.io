@@ -6,10 +6,15 @@
 <title>Rawasen Munisi — RF Engineer &amp; Software Developer</title>
 <script>
 (function(){
-  // Always start in dark mode on every fresh page load/visit.
-  // The theme toggle can still switch to light for the current
-  // session, but it will not be remembered on the next visit.
-  document.documentElement.removeAttribute('data-theme');
+  // Follow the visitor's device/browser preference on every fresh visit:
+  // if their system is set to light mode, open in light mode; otherwise dark.
+  // The in-page toggle can still switch it for the current session.
+  var prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+  if(prefersLight){
+    document.documentElement.setAttribute('data-theme', 'light');
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+  }
 })();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1175,9 +1180,9 @@ RAWASEN
 </section>
 
 <footer>
-<span>© 2026 Rawasen Munisi </span>
+<span>© 2026 Rawasen Munisi — RawasenMunisi.com</span>
 <span>RF ENGINEER — KARIBU SANA</span>
-<a class="footer-credit" href="#" target="_blank" rel="noopener"> <img class="logo-dark" src="rawasen-technology-logo-dark.png" alt="Rawasen Technology"><img class="logo-light" src="rawasen-technology-logo-light.png" alt="Rawasen Technology"></a>
+<a class="footer-credit" href="#" target="_blank" rel="noopener">Website by <img class="logo-dark" src="rawasen-technology-logo-dark.png" alt="Rawasen Technology"><img class="logo-light" src="rawasen-technology-logo-light.png" alt="Rawasen Technology"></a>
 </footer>
 
 <div class="id-modal-overlay" id="idModal">
