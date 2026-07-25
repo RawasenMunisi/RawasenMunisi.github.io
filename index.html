@@ -629,6 +629,7 @@ html[data-theme="light"] .roaming::before{
 .dot-vendor{ background:var(--beacon); }
 .dot-operator{ background:var(--cyan); }
 .dot-towerco{ background:var(--towerco); }
+
 .client-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; }
 .client-grid-badge{ grid-template-columns:repeat(6, 1fr); }
 .client-card{
@@ -661,6 +662,17 @@ html[data-theme="light"] .roaming::before{
   background:none; padding:0; border-radius:0;
 }
 .client-card.client-badge:hover img{ opacity:1; }
+
+.client-card{
+  opacity:0; transform:translateY(16px);
+  transition:border-color .2s, background-color .35s ease,
+    opacity .5s ease var(--reveal-delay,0ms), transform .5s ease var(--reveal-delay,0ms);
+}
+.client-card.in-view{ opacity:1; transform:translateY(0); }
+.client-card.in-view:hover{ border-color:var(--cyan); transform:translateY(-2px); transition:border-color .2s, transform .2s; }
+@media (prefers-reduced-motion: reduce){
+  .client-card{ opacity:1; transform:none; transition:border-color .2s, background-color .35s ease; }
+}
 
 @media (max-width:860px){
   .client-grid-badge{ grid-template-columns:repeat(3, 1fr); }
@@ -1246,6 +1258,26 @@ document.addEventListener('keydown', function(e){
   position();
   window.addEventListener('resize', position);
   window.addEventListener('orientationchange', position);
+})();
+
+/* ---- Staggered reveal: client/vendor logo cards fade + slide in
+   one after another as each group scrolls into view. ---- */
+(function(){
+  var groups = document.querySelectorAll('.client-grid');
+  if(!groups.length) return;
+  var STAGGER_MS = 70;
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(!entry.isIntersecting) return;
+      var cards = entry.target.querySelectorAll('.client-card');
+      cards.forEach(function(card, i){
+        card.style.setProperty('--reveal-delay', (i * STAGGER_MS) + 'ms');
+        card.classList.add('in-view');
+      });
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.15 });
+  groups.forEach(function(grid){ observer.observe(grid); });
 })();
 
 /* ---- Theme toggle ---- */
