@@ -648,6 +648,9 @@ html[data-theme="light"] .roaming::before{
   transition:opacity .2s, transform .2s;
 }
 .client-card:hover img{ opacity:1; transform:scale(1.04); }
+.client-card img.vendor-light{ display:none; }
+html[data-theme="light"] .client-card img.vendor-dark{ display:none; }
+html[data-theme="light"] .client-card img.vendor-light{ display:block; }
 .client-card .wordmark{
   font-family:'Space Grotesk', sans-serif; font-weight:700;
   font-size:19px; letter-spacing:0.01em; color:var(--text-primary);
@@ -1048,7 +1051,7 @@ RAWASEN
 <div class="client-grid">
 <div class="client-card"><img src="nokia.png" alt="Nokia"></div>
 <div class="client-card"><img src="ericsson.png" alt="Ericsson"></div>
-<div class="client-card"><img src="huawei.png" alt="Huawei"></div>
+<div class="client-card"><img class="vendor-dark" src="huawei-dark.png" alt="Huawei"><img class="vendor-light" src="huawei-light.png" alt="Huawei"></div>
 <div class="client-card"><img src="aviat.png" alt="Aviat Networks"></div>
 </div>
 </div>
@@ -1179,9 +1182,9 @@ RAWASEN
 </section>
 
 <footer>
-<span>© 2026 Rawasen Munisi </span>
-<span>RF NETWORK ENGINEER </span>
-<a class="footer-credit" href="#" target="_blank" rel="noopener"> <img class="logo-dark" src="rawasen-technology-logo-dark.png" alt="Rawasen Technology"><img class="logo-light" src="rawasen-technology-logo-light.png" alt="Rawasen Technology"></a>
+<span>© 2026 Rawasen Munisi — RawasenMunisi.com</span>
+<span>RF ENGINEER — KARIBU SANA</span>
+<a class="footer-credit" href="#" target="_blank" rel="noopener">Website by <img class="logo-dark" src="rawasen-technology-logo-dark.png" alt="Rawasen Technology"><img class="logo-light" src="rawasen-technology-logo-light.png" alt="Rawasen Technology"></a>
 </footer>
 
 <div class="id-modal-overlay" id="idModal">
