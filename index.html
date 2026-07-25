@@ -6,11 +6,12 @@
 <title>Rawasen Munisi — RF Engineer &amp; Software Developer</title>
 <script>
 (function(){
-  // Follow the visitor's device/browser preference on every fresh visit:
-  // if their system is set to light mode, open in light mode; otherwise dark.
+  // Follow the visitor's local time on every fresh visit:
+  // daytime (06:00–18:00) opens in light mode, nighttime opens in dark mode.
   // The in-page toggle can still switch it for the current session.
-  var prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
-  if(prefersLight){
+  var hour = new Date().getHours();
+  var isDaytime = hour >= 6 && hour < 18;
+  if(isDaytime){
     document.documentElement.setAttribute('data-theme', 'light');
   } else {
     document.documentElement.removeAttribute('data-theme');
