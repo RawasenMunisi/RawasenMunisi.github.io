@@ -737,6 +737,9 @@ footer{ padding:26px 6vw; border-top:1px solid var(--line); display:flex; justif
 .footer-credit{ display:inline-flex; align-items:center; gap:6px; text-decoration:none; color:#5A6278; transition:color .2s; }
 .footer-credit:hover{ color:var(--cyan); }
 .footer-credit img{ height:20px; width:auto; display:block; opacity:0.85; }
+.footer-credit .logo-light{ display:none; }
+html[data-theme="light"] .footer-credit .logo-dark{ display:none; }
+html[data-theme="light"] .footer-credit .logo-light{ display:block; }
 
 @media (max-width: 860px){
   .hero{ grid-template-columns:1fr; padding-top:130px; }
@@ -1172,9 +1175,9 @@ RAWASEN
 </section>
 
 <footer>
-<span>© 2026 Rawasen Munisi </span>
+<span>© 2026 Rawasen Munisi — RawasenMunisi.com</span>
 <span>RF ENGINEER — KARIBU SANA</span>
-<a class="footer-credit" href="#" target="_blank" rel="noopener"> <img src="rawasen-technology-logo.png" alt="Rawasen Technology"></a>
+<a class="footer-credit" href="#" target="_blank" rel="noopener">Website by <img class="logo-dark" src="rawasen-technology-logo-dark.png" alt="Rawasen Technology"><img class="logo-light" src="rawasen-technology-logo-light.png" alt="Rawasen Technology"></a>
 </footer>
 
 <div class="id-modal-overlay" id="idModal">
