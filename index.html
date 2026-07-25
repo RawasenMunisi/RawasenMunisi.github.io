@@ -70,20 +70,19 @@ html[data-theme="light"] header.nav{
   --line: rgba(237,239,245,0.09);
   color:#EDEFF5;
 }
-/* Vendor logos: monochrome/grayscale treatment, tuned differently per theme
-   so they read clearly on both a dark panel and a light panel */
+/* Vendor logos: shown in full color in both themes */
 html[data-theme="light"] .client-card img{
-  filter:grayscale(1) brightness(0.82) contrast(1.15); opacity:0.62;
+  opacity:1;
 }
 html[data-theme="light"] .client-card .wordmark{
-  filter:none; opacity:0.68; color:var(--text-primary);
+  opacity:0.9; color:var(--text-primary);
 }
 html[data-theme="light"] .client-card:hover .wordmark{ opacity:1; color:var(--cyan); }
 html[data-theme="light"] .client-card.client-badge img{
-  filter:none; opacity:0.94;
+  opacity:0.94;
 }
 html[data-theme="light"] .client-card.client-badge:hover img{ opacity:1; }
-html[data-theme="light"] .client-card:hover img{ filter:none; opacity:1; }
+html[data-theme="light"] .client-card:hover img{ opacity:1; }
 /* Light mode: swap the night drive-test photo for the daytime version,
    and lighten the overlay since Mission text is now dark */
 html[data-theme="light"] .mission{
@@ -645,16 +644,16 @@ html[data-theme="light"] .roaming::before{
 .client-card:hover{ border-color:var(--cyan); transform:translateY(-2px); }
 .client-card img{
   max-width:100%; max-height:34px; width:auto; height:auto;
-  filter:grayscale(1) brightness(1.6) contrast(0.9); opacity:0.72;
-  transition:filter .2s, opacity .2s;
+  opacity:1;
+  transition:opacity .2s, transform .2s;
 }
-.client-card:hover img{ filter:none; opacity:1; }
+.client-card:hover img{ opacity:1; transform:scale(1.04); }
 .client-card .wordmark{
   font-family:'Space Grotesk', sans-serif; font-weight:700;
   font-size:19px; letter-spacing:0.01em; color:var(--text-primary);
-  opacity:0.72; filter:grayscale(1); transition:filter .2s, opacity .2s, color .2s;
+  opacity:0.9; transition:opacity .2s, color .2s;
 }
-.client-card:hover .wordmark{ filter:none; opacity:1; color:var(--cyan); }
+.client-card:hover .wordmark{ opacity:1; color:var(--cyan); }
 .wm-nokia{ font-weight:700; letter-spacing:0.04em; font-size:22px; }
 .wm-ericsson{ font-weight:400; letter-spacing:0.005em; font-size:22px; text-transform:lowercase; }
 .wm-huawei{ font-weight:800; letter-spacing:0.08em; font-size:19px; }
@@ -1180,8 +1179,8 @@ RAWASEN
 </section>
 
 <footer>
-<span>© 2026 Rawasen Munisi </span>
-<span>RF ENGINEER KARIBU TENA</span>
+<span>© 2026 Rawasen Munisi — RawasenMunisi.com</span>
+<span>RF ENGINEER — KARIBU SANA</span>
 <a class="footer-credit" href="#" target="_blank" rel="noopener">Website by <img class="logo-dark" src="rawasen-technology-logo-dark.png" alt="Rawasen Technology"><img class="logo-light" src="rawasen-technology-logo-light.png" alt="Rawasen Technology"></a>
 </footer>
 
