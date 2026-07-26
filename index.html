@@ -652,12 +652,31 @@ html[data-theme="light"] .roaming::before{
 .dot-operator{ background:var(--cyan); }
 .dot-towerco{ background:var(--towerco); }
 
-.client-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; }
-.client-grid-badge{ grid-template-columns:repeat(6, 1fr); }
+/* ---- Sliding logo marquee ---- */
+.client-marquee{
+  overflow:hidden; position:relative;
+  -webkit-mask-image:linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+  mask-image:linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+  opacity:0; transform:translateY(12px);
+  transition:opacity .6s ease, transform .6s ease;
+}
+.client-marquee.in-view{ opacity:1; transform:translateY(0); }
+.client-track{
+  display:flex; gap:16px; width:max-content;
+  animation:clientScroll var(--marquee-dur, 32s) linear infinite;
+}
+.client-marquee:hover .client-track{ animation-play-state:paused; }
+.client-track.reverse{ animation-direction:reverse; }
+@keyframes clientScroll{
+  from{ transform:translateX(0); }
+  to{ transform:translateX(-50%); }
+}
+
 .client-card{
   background:var(--bg-panel); border:1px solid var(--line); border-radius:8px;
   padding:24px 20px; display:flex; align-items:center; justify-content:center;
-  min-height:88px; transition:border-color .2s, transform .2s, background-color .35s ease;
+  min-height:88px; flex:0 0 auto; width:200px;
+  transition:border-color .2s, transform .2s, background-color .35s ease;
 }
 .client-card:hover{ border-color:var(--cyan); transform:translateY(-2px); }
 .client-card img{
@@ -679,7 +698,7 @@ html[data-theme="light"] .client-card img.vendor-light{ display:block; }
 .wm-ericsson{ font-weight:400; letter-spacing:0.005em; font-size:22px; text-transform:lowercase; }
 .wm-huawei{ font-weight:800; letter-spacing:0.08em; font-size:19px; }
 .client-card.client-badge{
-  padding:0; overflow:hidden; border-radius:8px; min-height:78px;
+  padding:0; overflow:hidden; border-radius:8px; min-height:78px; width:170px;
 }
 .client-card.client-badge img{
   max-height:none; width:100%; height:100%; object-fit:cover;
@@ -688,23 +707,14 @@ html[data-theme="light"] .client-card img.vendor-light{ display:block; }
 }
 .client-card.client-badge:hover img{ opacity:1; }
 
-.client-card{
-  opacity:0; transform:translateY(16px);
-  transition:border-color .2s, background-color .35s ease,
-    opacity .5s ease var(--reveal-delay,0ms), transform .5s ease var(--reveal-delay,0ms);
-}
-.client-card.in-view{ opacity:1; transform:translateY(0); }
-.client-card.in-view:hover{ border-color:var(--cyan); transform:translateY(-2px); transition:border-color .2s, transform .2s; }
 @media (prefers-reduced-motion: reduce){
-  .client-card{ opacity:1; transform:none; transition:border-color .2s, background-color .35s ease; }
+  .client-track{ animation:none; overflow-x:auto; scrollbar-width:thin; }
+  .client-marquee{ opacity:1; transform:none; }
 }
 
-@media (max-width:860px){
-  .client-grid-badge{ grid-template-columns:repeat(3, 1fr); }
-}
 @media (max-width:560px){
-  .client-grid{ grid-template-columns:repeat(2, 1fr); }
-  .client-grid-badge{ grid-template-columns:repeat(2, 1fr); }
+  .client-card{ width:150px; padding:18px 14px; }
+  .client-card.client-badge{ width:130px; }
 }
 
 
@@ -1110,35 +1120,57 @@ RAWASEN
 
 <div class="client-group">
 <div class="client-group-label"><i class="dot dot-vendor"></i>Technology Vendors</div>
-<div class="client-grid">
+<div class="client-marquee">
+<div class="client-track" style="--marquee-dur:28s;">
 <div class="client-card"><img src="nokia.png" alt="Nokia"></div>
 <div class="client-card"><img src="ericsson.png" alt="Ericsson"></div>
 <div class="client-card"><img class="vendor-dark" src="huawei-dark.png" alt="Huawei"><img class="vendor-light" src="huawei-light.png" alt="Huawei"></div>
 <div class="client-card"><img src="aviat.png" alt="Aviat Networks"></div>
 <div class="client-card"><img class="vendor-dark" src="amdocs-dark.png" alt="Amdocs"><img class="vendor-light" src="amdocs-light.png" alt="Amdocs"></div>
+<div class="client-card" aria-hidden="true"><img src="nokia.png" alt=""></div>
+<div class="client-card" aria-hidden="true"><img src="ericsson.png" alt=""></div>
+<div class="client-card" aria-hidden="true"><img class="vendor-dark" src="huawei-dark.png" alt=""><img class="vendor-light" src="huawei-light.png" alt=""></div>
+<div class="client-card" aria-hidden="true"><img src="aviat.png" alt=""></div>
+<div class="client-card" aria-hidden="true"><img class="vendor-dark" src="amdocs-dark.png" alt=""><img class="vendor-light" src="amdocs-light.png" alt=""></div>
+</div>
 </div>
 </div>
 
 <div class="client-group">
 <div class="client-group-label"><i class="dot dot-operator"></i>Mobile Network Operators</div>
-<div class="client-grid client-grid-badge">
+<div class="client-marquee">
+<div class="client-track reverse" style="--marquee-dur:34s;">
 <div class="client-card client-badge"><img src="mtn.jpg" alt="MTN"></div>
 <div class="client-card client-badge"><img src="tigo.png" alt="Tigo"></div>
 <div class="client-card client-badge"><img src="ttcl-alt.png" alt="TTCL"></div>
 <div class="client-card client-badge"><img src="vodacom.png" alt="Vodacom"></div>
 <div class="client-card client-badge"><img src="yas.jpg" alt="Yas"></div>
 <div class="client-card client-badge"><img src="airtel.png" alt="Airtel"></div>
+<div class="client-card client-badge" aria-hidden="true"><img src="mtn.jpg" alt=""></div>
+<div class="client-card client-badge" aria-hidden="true"><img src="tigo.png" alt=""></div>
+<div class="client-card client-badge" aria-hidden="true"><img src="ttcl-alt.png" alt=""></div>
+<div class="client-card client-badge" aria-hidden="true"><img src="vodacom.png" alt=""></div>
+<div class="client-card client-badge" aria-hidden="true"><img src="yas.jpg" alt=""></div>
+<div class="client-card client-badge" aria-hidden="true"><img src="airtel.png" alt=""></div>
+</div>
 </div>
 </div>
 
 <div class="client-group">
 <div class="client-group-label"><i class="dot dot-towerco"></i>Tower Companies</div>
-<div class="client-grid client-grid-badge">
+<div class="client-marquee">
+<div class="client-track" style="--marquee-dur:26s;">
 <div class="client-card client-badge"><img src="toa.png" alt="TOA - Towerco of Africa"></div>
 <div class="client-card client-badge"><img src="minara.png" alt="Minara Tanzania"></div>
 <div class="client-card client-badge"><img src="helios.png" alt="Helios Towers"></div>
 <div class="client-card client-badge"><img src="ihs.png" alt="IHS Towers"></div>
 <div class="client-card client-badge"><img src="tres.png" alt="TRES"></div>
+<div class="client-card client-badge" aria-hidden="true"><img src="toa.png" alt=""></div>
+<div class="client-card client-badge" aria-hidden="true"><img src="minara.png" alt=""></div>
+<div class="client-card client-badge" aria-hidden="true"><img src="helios.png" alt=""></div>
+<div class="client-card client-badge" aria-hidden="true"><img src="ihs.png" alt=""></div>
+<div class="client-card client-badge" aria-hidden="true"><img src="tres.png" alt=""></div>
+</div>
 </div>
 </div>
 </section>
@@ -1336,24 +1368,19 @@ document.addEventListener('keydown', function(e){
   window.addEventListener('orientationchange', position);
 })();
 
-/* ---- Staggered reveal: client/vendor logo cards fade + slide in
-   one after another as each group scrolls into view. ---- */
+/* ---- Reveal: client/vendor logo marquees fade in as each
+   group scrolls into view, then slide continuously. ---- */
 (function(){
-  var groups = document.querySelectorAll('.client-grid');
-  if(!groups.length) return;
-  var STAGGER_MS = 70;
+  var marquees = document.querySelectorAll('.client-marquee');
+  if(!marquees.length) return;
   var observer = new IntersectionObserver(function(entries){
     entries.forEach(function(entry){
       if(!entry.isIntersecting) return;
-      var cards = entry.target.querySelectorAll('.client-card');
-      cards.forEach(function(card, i){
-        card.style.setProperty('--reveal-delay', (i * STAGGER_MS) + 'ms');
-        card.classList.add('in-view');
-      });
+      entry.target.classList.add('in-view');
       observer.unobserve(entry.target);
     });
   }, { threshold: 0.15 });
-  groups.forEach(function(grid){ observer.observe(grid); });
+  marquees.forEach(function(m){ observer.observe(m); });
 })();
 
 /* ---- Theme toggle ---- */
