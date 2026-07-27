@@ -333,8 +333,10 @@ h1.headline .accent{ color:var(--cyan); }
   font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--text-muted);
   display:flex; justify-content:space-between; margin-bottom:14px;
   letter-spacing:0.05em;
+  gap:10px;
 }
-.scope-label b{ color:var(--cyan); font-weight:500; }
+.scope-label span{ min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.scope-label b{ color:var(--cyan); font-weight:500; flex-shrink:0; }
 
 /* ---- TEMS-style analyzer chart ---- */
 .tems-chart{
@@ -716,6 +718,10 @@ html[data-theme="light"] .client-card img.vendor-light{ display:block; }
   .client-marquee{ opacity:1; transform:none; }
 }
 
+@media (max-width:480px){
+  .scope{ padding:16px; }
+  .scope-label{ font-size:10px; }
+}
 @media (max-width:560px){
   .client-card{ width:150px; padding:18px 14px; }
   .client-card.client-badge{ width:130px; }
