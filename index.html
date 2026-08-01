@@ -181,6 +181,23 @@ nav.links a:hover{ color:var(--cyan); }
 :root[data-theme="light"] .theme-toggle .icon-sun{ display:none; }
 :root[data-theme="light"] .theme-toggle .icon-moon{ display:block; }
 
+.lang-toggle{
+  display:flex; align-items:center; gap:2px; flex-shrink:0;
+  border:1px solid var(--line); border-radius:20px;
+  background:rgba(var(--bg-deep-rgb),0.4);
+  padding:3px;
+}
+.lang-btn{
+  border:none; background:transparent; cursor:pointer;
+  font-family:'IBM Plex Mono', monospace;
+  font-size:11px; letter-spacing:0.06em; font-weight:500;
+  color:var(--text-muted);
+  padding:5px 11px; border-radius:16px;
+  transition: background .2s ease, color .2s ease;
+}
+.lang-btn.active{ background:var(--cyan); color:var(--bg-deep); }
+.lang-btn:not(.active):hover{ color:var(--cyan); }
+
 section{ position:relative; z-index:2; padding:0 6vw; }
 
 .tower-light{
@@ -788,6 +805,8 @@ html[data-theme="light"] .footer-credit .logo-dark{ display:none; }
 html[data-theme="light"] .footer-credit .logo-light{ display:block; }
 
 @media (max-width: 860px){
+  header.nav{ padding:16px 5vw; gap:10px; }
+  .lang-btn{ padding:4px 8px; font-size:10px; }
   .hero{ grid-template-columns:1fr; padding-top:130px; }
   .about-grid{ grid-template-columns:1fr; gap:20px; }
   .stats-grid{ grid-template-columns:repeat(2,1fr); }
@@ -835,14 +854,18 @@ html[data-theme="light"] .footer-credit .logo-light{ display:block; }
 RAWASEN
 </div>
 <nav class="links">
-<a href="#about">About</a>
-<a href="#bands">Experience</a>
-<a href="#roaming">Roaming</a>
-<a href="#clients">Clients</a>
-<a href="#projects">Projects</a>
-<a href="#handover">Handover</a>
-<a href="#contact">Contact</a>
+<a href="#about" data-sw="Kuhusu">About</a>
+<a href="#bands" data-sw="Uzoefu">Experience</a>
+<a href="#roaming" data-sw="Uzururaji">Roaming</a>
+<a href="#clients" data-sw="Wateja">Clients</a>
+<a href="#projects" data-sw="Miradi">Projects</a>
+<a href="#handover" data-sw="Mpito">Handover</a>
+<a href="#contact" data-sw="Wasiliana">Contact</a>
 </nav>
+<div class="lang-toggle" id="langToggle">
+<button type="button" class="lang-btn active" data-lang="en">EN</button>
+<button type="button" class="lang-btn" data-lang="sw">SW</button>
+</div>
 <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark theme">
 <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="2" x2="12" y2="4"></line><line x1="12" y1="20" x2="12" y2="22"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="2" y1="12" x2="4" y2="12"></line><line x1="20" y1="12" x2="22" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
 <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
@@ -853,17 +876,17 @@ RAWASEN
 <div class="tower-light"></div>
 <div>
 <div class="eyebrow eyebrow-noblink">Rawasen Munisi</div>
-<h1 class="headline">Engineering the Future Through <span class="accent">Networks</span> and Software</h1>
-<p class="hero-sub">I specialize in RF Network Optimization, Drive Testing, and Software Development with more than 8 years of experience delivering world-class telecommunications solutions across Africa. From single site verification and cluster optimization to custom software development, I combine engineering expertise with technology innovation to solve complex challenges.</p>
+<h1 class="headline" data-sw="Kuijenga Mustakabali Kupitia <span class=&quot;accent&quot;>Mitandao</span> na Programu">Engineering the Future Through <span class="accent">Networks</span> and Software</h1>
+<p class="hero-sub" data-sw="Nina utaalamu wa Uboreshaji wa Mitandao ya RF, Upimaji wa Mtandao (Drive Testing), na Uendelezaji wa Programu, nikiwa na uzoefu wa zaidi ya miaka 8 katika kutoa suluhisho bora za mawasiliano barani Afrika. Kuanzia uthibitishaji wa eneo moja (SSV) na uboreshaji wa makundi ya maeneo hadi uendelezaji wa programu maalum, ninachanganya utaalamu wa uhandisi na ubunifu wa kiteknolojia kutatua changamoto ngumu.">I specialize in RF Network Optimization, Drive Testing, and Software Development with more than 8 years of experience delivering world-class telecommunications solutions across Africa. From single site verification and cluster optimization to custom software development, I combine engineering expertise with technology innovation to solve complex challenges.</p>
 <div class="hero-meta">
-<div><span class="label">Role</span><span class="val">RF Engineer</span></div>
-<div><span class="label">Experience</span><span class="val">8+ years</span></div>
-<div><span class="label">Currently learning</span><span class="val">Python</span></div>
-<div><span class="label">Status</span><span class="val">Optimizing Networks. Building Software.</span></div>
+<div><span class="label" data-sw="Nafasi">Role</span><span class="val" data-sw="Mhandisi wa RF">RF Engineer</span></div>
+<div><span class="label" data-sw="Uzoefu">Experience</span><span class="val" data-sw="Miaka 8+">8+ years</span></div>
+<div><span class="label" data-sw="Ninachojifunza Sasa">Currently learning</span><span class="val">Python</span></div>
+<div><span class="label" data-sw="Hali">Status</span><span class="val" data-sw="Ninaboresha Mitandao. Ninatengeneza Programu.">Optimizing Networks. Building Software.</span></div>
 </div>
 <div class="hero-cta">
-<a href="#projects" class="btn">View My Projects</a>
-<a href="#contact" class="btn btn-ghost">Contact Me</a>
+<a href="#projects" class="btn" data-sw="Angalia Miradi Yangu">View My Projects</a>
+<a href="#contact" class="btn btn-ghost" data-sw="Wasiliana Nami">Contact Me</a>
 </div>
 </div>
 <div class="hero-right">
@@ -871,11 +894,11 @@ RAWASEN
 <img src="rawasen.jpg" alt="Rawasen Munisi">
 <div class="portrait-info">
 <div class="p-name">Rawasen Munisi</div>
-<div class="p-role">RF Optimization Engineer</div>
+<div class="p-role" data-sw="Mhandisi wa Uboreshaji wa RF">RF Optimization Engineer</div>
 </div>
 </div>
 <div class="scope">
-<div class="scope-label"><span>SPECTRUM ANALYZER</span><b>LIVE</b></div>
+<div class="scope-label"><span data-sw="KICHANGANUZI CHA MASAFA">SPECTRUM ANALYZER</span><b data-sw="MOJA KWA MOJA">LIVE</b></div>
 
 <div class="tems-chart">
   <div class="db-scale">
@@ -953,64 +976,64 @@ RAWASEN
 
 <section class="about" id="about">
 <div class="section-head">
-<div class="eyebrow">About</div>
-<h2>Engineering Across Two Worlds</h2>
+<div class="eyebrow" data-sw="Kuhusu">About</div>
+<h2 data-sw="Uhandisi Katika Dunia Mbili">Engineering Across Two Worlds</h2>
 </div>
 <div class="about-grid">
-<p>With over eight years of experience in <strong>RF Network Optimization</strong>, I continue to deliver high-performance mobile networks while developing modern software solutions. My goal is to bridge telecommunications and software engineering to create technology that is reliable, efficient, and built for the future.</p>
+<p data-sw="Nikiwa na uzoefu wa zaidi ya miaka nane katika <strong>Uboreshaji wa Mitandao ya RF</strong>, naendelea kutoa mitandao ya simu yenye ubora wa hali ya juu huku nikiendeleza suluhisho za kisasa za programu. Lengo langu ni kuunganisha mawasiliano na uhandisi wa programu kutengeneza teknolojia iliyo ya kuaminika, yenye ufanisi, na iliyojengwa kwa ajili ya mustakabali.">With over eight years of experience in <strong>RF Network Optimization</strong>, I continue to deliver high-performance mobile networks while developing modern software solutions. My goal is to bridge telecommunications and software engineering to create technology that is reliable, efficient, and built for the future.</p>
 </div>
 <div class="stats-grid">
 <div class="stat-card">
-<div class="stat-num"><span class="stat-num-value" data-count-to="8">0</span><span class="stat-num-suffix">+ Years</span></div>
-<div class="stat-title">Experience</div>
-<div class="stat-desc">Delivering telecom solutions across multiple markets in Africa.</div>
+<div class="stat-num"><span class="stat-num-value" data-count-to="8">0</span><span class="stat-num-suffix" data-sw="+ Miaka">+ Years</span></div>
+<div class="stat-title" data-sw="Uzoefu">Experience</div>
+<div class="stat-desc" data-sw="Kutoa suluhisho za mawasiliano katika masoko mbalimbali barani Afrika.">Delivering telecom solutions across multiple markets in Africa.</div>
 </div>
 <div class="stat-card">
-<div class="stat-num"><span class="stat-num-value" data-count-to="5">0</span><span class="stat-num-suffix"> Countries</span></div>
-<div class="stat-title">Worked In</div>
-<div class="stat-desc">Hands-on experience in diverse network environments and technologies.</div>
+<div class="stat-num"><span class="stat-num-value" data-count-to="5">0</span><span class="stat-num-suffix" data-sw=" Nchi"> Countries</span></div>
+<div class="stat-title" data-sw="Nchi Nilizofanyia Kazi">Worked In</div>
+<div class="stat-desc" data-sw="Uzoefu wa vitendo katika mazingira na teknolojia mbalimbali za mitandao.">Hands-on experience in diverse network environments and technologies.</div>
 </div>
 <div class="stat-card">
-<div class="stat-num"><span class="stat-num-value" data-count-to="500">0</span><span class="stat-num-suffix">+ Sites</span></div>
-<div class="stat-title">Optimized</div>
-<div class="stat-desc">Improving coverage, capacity, and customer experience through RF optimization.</div>
+<div class="stat-num"><span class="stat-num-value" data-count-to="500">0</span><span class="stat-num-suffix" data-sw="+ Maeneo">+ Sites</span></div>
+<div class="stat-title" data-sw="Maeneo Niliyoboresha">Optimized</div>
+<div class="stat-desc" data-sw="Kuboresha mfikio, uwezo, na uzoefu wa mteja kupitia uboreshaji wa RF.">Improving coverage, capacity, and customer experience through RF optimization.</div>
 </div>
 <div class="stat-card">
 <div class="stat-num">2G | 3G | LTE | 5G NR</div>
-<div class="stat-title">Expertise</div>
-<div class="stat-desc">Testing, optimization, and performance analysis across multiple radio technologies.</div>
+<div class="stat-title" data-sw="Utaalamu">Expertise</div>
+<div class="stat-desc" data-sw="Upimaji, uboreshaji, na uchambuzi wa utendaji katika teknolojia mbalimbali za redio.">Testing, optimization, and performance analysis across multiple radio technologies.</div>
 </div>
 </div>
 </section>
 
 <section class="whatido" id="whatido">
 <div class="section-head">
-<div class="eyebrow">What I Do</div>
-<h2>Where telecom meets code</h2>
-<p>Hello, I am Rawasen Munisi. I specialize in RF Network Optimization, Drive Testing, and Software Development with more than 8 years of experience delivering world-class telecommunications solutions across Africa. From single site verification and cluster optimization to custom software development, I combine engineering expertise with technology innovation to solve complex challenges.</p>
+<div class="eyebrow" data-sw="Ninachofanya">What I Do</div>
+<h2 data-sw="Mahali Mawasiliano Yanapokutana na Programu">Where telecom meets code</h2>
+<p data-sw="Habari, mimi ni Rawasen Munisi. Nina utaalamu wa Uboreshaji wa Mitandao ya RF, Upimaji wa Mtandao, na Uendelezaji wa Programu, nikiwa na uzoefu wa zaidi ya miaka 8 katika kutoa suluhisho bora za mawasiliano barani Afrika. Kuanzia uthibitishaji wa eneo moja na uboreshaji wa makundi ya maeneo hadi uendelezaji wa programu maalum, ninachanganya utaalamu wa uhandisi na ubunifu wa kiteknolojia kutatua changamoto ngumu.">Hello, I am Rawasen Munisi. I specialize in RF Network Optimization, Drive Testing, and Software Development with more than 8 years of experience delivering world-class telecommunications solutions across Africa. From single site verification and cluster optimization to custom software development, I combine engineering expertise with technology innovation to solve complex challenges.</p>
 </div>
 <div class="whatido-grid">
 <div class="whatido-group">
-<div class="wig-head"><span class="wi-icon">📡</span><span class="wig-title">RF Engineering</span></div>
+<div class="wig-head"><span class="wi-icon">📡</span><span class="wig-title" data-sw="Uhandisi wa RF">RF Engineering</span></div>
 <ul class="wig-list">
-<li>RF Network Optimization</li>
-<li>Drive Testing &amp; Benchmarking</li>
-<li>KPI Analysis &amp; Performance Optimization</li>
+<li data-sw="Uboreshaji wa Mitandao ya RF">RF Network Optimization</li>
+<li data-sw="Upimaji wa Mtandao na Kulinganisha">Drive Testing &amp; Benchmarking</li>
+<li data-sw="Uchambuzi wa KPI na Uboreshaji wa Utendaji">KPI Analysis &amp; Performance Optimization</li>
 </ul>
 </div>
 <div class="whatido-group">
-<div class="wig-head"><span class="wi-icon">📶</span><span class="wig-title">Mobile Technologies</span></div>
+<div class="wig-head"><span class="wi-icon">📶</span><span class="wig-title" data-sw="Teknolojia za Simu">Mobile Technologies</span></div>
 <ul class="wig-list">
 <li>GSM | WCDMA | LTE | 5G NR</li>
-<li>Cloud RAN Operations</li>
-<li>Network Automation</li>
+<li data-sw="Uendeshaji wa Cloud RAN">Cloud RAN Operations</li>
+<li data-sw="Uendeshaji wa Kiotomatiki wa Mtandao">Network Automation</li>
 </ul>
 </div>
 <div class="whatido-group">
-<div class="wig-head"><span class="wi-icon">💻</span><span class="wig-title">Software Engineering</span></div>
+<div class="wig-head"><span class="wi-icon">💻</span><span class="wig-title" data-sw="Uhandisi wa Programu">Software Engineering</span></div>
 <ul class="wig-list">
-<li>Full-Stack Web Development</li>
-<li>Python Automation &amp; APIs</li>
+<li data-sw="Uendelezaji Kamili wa Tovuti (Full-Stack)">Full-Stack Web Development</li>
+<li data-sw="Uendeshaji wa Kiotomatiki kwa Python na APIs">Python Automation &amp; APIs</li>
 </ul>
 </div>
 </div>
@@ -1018,43 +1041,43 @@ RAWASEN
 
 <section class="whatido" id="expertise">
 <div class="section-head">
-<div class="eyebrow">Expertise</div>
-<h2>Two disciplines, one engineer</h2>
-<p>A closer look at the two sides of my work — deep RF and telecom engineering on one side, full-stack software development on the other.</p>
+<div class="eyebrow" data-sw="Utaalamu">Expertise</div>
+<h2 data-sw="Fani Mbili, Mhandisi Mmoja">Two disciplines, one engineer</h2>
+<p data-sw="Muonekano wa karibu wa pande mbili za kazi yangu — uhandisi wa kina wa RF na mawasiliano upande mmoja, uendelezaji kamili wa programu upande mwingine.">A closer look at the two sides of my work — deep RF and telecom engineering on one side, full-stack software development on the other.</p>
 </div>
 <div class="expertise-grid">
 <div class="expertise-card">
-<div class="exp-head"><span class="exp-icon">📡</span><span class="exp-title">Telecommunications Engineering</span></div>
+<div class="exp-head"><span class="exp-icon">📡</span><span class="exp-title" data-sw="Uhandisi wa Mawasiliano">Telecommunications Engineering</span></div>
 <ul class="exp-list">
-<li>RF Drive Testing</li>
-<li>Network Optimization</li>
+<li data-sw="Upimaji wa Mtandao wa RF">RF Drive Testing</li>
+<li data-sw="Uboreshaji wa Mtandao">Network Optimization</li>
 <li>TEMS Investigation (Infovista)</li>
 <li>Huawei GENEX Probe</li>
-<li>Single Site Verification (SSV)</li>
-<li>Cluster Drive Testing</li>
-<li>Customer Complaint Analysis</li>
-<li>Benchmark Testing</li>
+<li data-sw="Uthibitishaji wa Eneo Moja (SSV)">Single Site Verification (SSV)</li>
+<li data-sw="Upimaji wa Kundi la Maeneo">Cluster Drive Testing</li>
+<li data-sw="Uchambuzi wa Malalamiko ya Wateja">Customer Complaint Analysis</li>
+<li data-sw="Upimaji wa Kulinganisha">Benchmark Testing</li>
 <li>LTE, 5G, UMTS &amp; GSM</li>
-<li>Fiber Optic Networks</li>
-<li>Microwave Links</li>
-<li>Network Performance Analysis</li>
+<li data-sw="Mitandao ya Fiber Optic">Fiber Optic Networks</li>
+<li data-sw="Miungano ya Microwave">Microwave Links</li>
+<li data-sw="Uchambuzi wa Utendaji wa Mtandao">Network Performance Analysis</li>
 </ul>
 </div>
 <div class="expertise-card">
-<div class="exp-head"><span class="exp-icon">💻</span><span class="exp-title">Software Engineering</span></div>
+<div class="exp-head"><span class="exp-icon">💻</span><span class="exp-title" data-sw="Uhandisi wa Programu">Software Engineering</span></div>
 <ul class="exp-list">
-<li>Custom Web Applications</li>
-<li>Enterprise Software Development</li>
-<li>Business Management Systems</li>
-<li>Inventory Systems</li>
-<li>CRM Solutions</li>
-<li>HR &amp; Payroll Systems</li>
-<li>School Management Systems</li>
-<li>REST APIs Development</li>
-<li>Database Design</li>
-<li>System Integration</li>
-<li>Cloud Deployment</li>
-<li>Website Development</li>
+<li data-sw="Programu Maalum za Tovuti">Custom Web Applications</li>
+<li data-sw="Uendelezaji wa Programu za Taasisi">Enterprise Software Development</li>
+<li data-sw="Mifumo ya Usimamizi wa Biashara">Business Management Systems</li>
+<li data-sw="Mifumo ya Usimamizi wa Bidhaa">Inventory Systems</li>
+<li data-sw="Suluhisho za CRM">CRM Solutions</li>
+<li data-sw="Mifumo ya Rasilimali Watu na Mishahara">HR &amp; Payroll Systems</li>
+<li data-sw="Mifumo ya Usimamizi wa Shule">School Management Systems</li>
+<li data-sw="Uendelezaji wa REST APIs">REST APIs Development</li>
+<li data-sw="Ubunifu wa Hifadhidata">Database Design</li>
+<li data-sw="Uunganishaji wa Mifumo">System Integration</li>
+<li data-sw="Uwekaji kwenye Wingu (Cloud)">Cloud Deployment</li>
+<li data-sw="Uendelezaji wa Tovuti">Website Development</li>
 </ul>
 </div>
 </div>
@@ -1062,36 +1085,36 @@ RAWASEN
 
 <section class="mission" id="mission">
 <div class="mission-card">
-<div class="eyebrow">Mission</div>
-<p>My mission is to bridge telecommunications and software engineering by creating high-performance mobile networks, scalable cloud solutions, and innovative applications that solve real-world challenges.</p>
-<div class="mission-tagline">Optimizing Mobile Networks. Building Smart Software. Delivering Reliable Digital Solutions.</div>
+<div class="eyebrow" data-sw="Dhamira">Mission</div>
+<p data-sw="Dhamira yangu ni kuunganisha mawasiliano na uhandisi wa programu kwa kutengeneza mitandao ya simu yenye ubora wa hali ya juu, suluhisho za wingu zinazoweza kukua, na programu bunifu zinazotatua changamoto halisi za dunia.">My mission is to bridge telecommunications and software engineering by creating high-performance mobile networks, scalable cloud solutions, and innovative applications that solve real-world challenges.</p>
+<div class="mission-tagline" data-sw="Ninaboresha Mitandao ya Simu. Ninatengeneza Programu Bunifu. Ninatoa Suluhisho za Kidijitali za Kuaminika.">Optimizing Mobile Networks. Building Smart Software. Delivering Reliable Digital Solutions.</div>
 </div>
 </section>
 
 <section class="bands" id="bands">
 <div class="section-head">
-<div class="eyebrow">Coverage</div>
-<h2>Networks I've worked across</h2>
-<p>Hands-on experience across 2G, 3G, 4G, and 5G mobile networks, delivering RF optimization, drive testing, network integration, and performance improvement projects.</p>
+<div class="eyebrow" data-sw="Mfikio">Coverage</div>
+<h2 data-sw="Mitandao Niliyofanyia Kazi">Networks I've worked across</h2>
+<p data-sw="Uzoefu wa vitendo katika mitandao ya simu ya 2G, 3G, 4G, na 5G, nikitoa miradi ya uboreshaji wa RF, upimaji wa mtandao, uunganishaji wa mtandao, na uboreshaji wa utendaji.">Hands-on experience across 2G, 3G, 4G, and 5G mobile networks, delivering RF optimization, drive testing, network integration, and performance improvement projects.</p>
 </div>
 <div class="band-grid">
-<div class="band-card"><div class="band-freq">2G</div><div class="band-name">GSM</div><div class="band-vendors">Voice-era foundation networks. Site commissioning, SSV checklists, integration acceptance.</div></div>
-<div class="band-card"><div class="band-freq">3G</div><div class="band-name">WCDMA</div><div class="band-vendors">Data-capable overlay networks. Drive testing and KPI-driven optimization.</div></div>
-<div class="band-card"><div class="band-freq">4G</div><div class="band-name">LTE</div><div class="band-vendors">Throughput-focused rollouts across Nokia and Huawei RAN equipment.</div></div>
-<div class="band-card"><div class="band-freq">5G</div><div class="band-name">NR</div><div class="band-vendors">Next-gen deployments — Ericsson and Huawei stacks, greenfield site work.</div></div>
+<div class="band-card"><div class="band-freq">2G</div><div class="band-name">GSM</div><div class="band-vendors" data-sw="Mitandao ya msingi ya enzi ya sauti. Uzinduzi wa maeneo, orodha za ukaguzi wa SSV, ukubalifu wa uunganishaji.">Voice-era foundation networks. Site commissioning, SSV checklists, integration acceptance.</div></div>
+<div class="band-card"><div class="band-freq">3G</div><div class="band-name">WCDMA</div><div class="band-vendors" data-sw="Mitandao yenye uwezo wa data. Upimaji wa mtandao na uboreshaji unaoongozwa na KPI.">Data-capable overlay networks. Drive testing and KPI-driven optimization.</div></div>
+<div class="band-card"><div class="band-freq">4G</div><div class="band-name">LTE</div><div class="band-vendors" data-sw="Uzinduzi ulioegemea kasi ya data kwa vifaa vya RAN vya Nokia na Huawei.">Throughput-focused rollouts across Nokia and Huawei RAN equipment.</div></div>
+<div class="band-card"><div class="band-freq">5G</div><div class="band-name">NR</div><div class="band-vendors" data-sw="Uzinduzi wa kizazi kipya — mifumo ya Ericsson na Huawei, kazi za maeneo mapya.">Next-gen deployments — Ericsson and Huawei stacks, greenfield site work.</div></div>
 </div>
 </section>
 
 <section class="roaming" id="roaming">
 <div class="section-head">
-<div class="eyebrow">Roaming history</div>
-<h2>Networks I've been on</h2>
-<p>Over the past 8+ years, I've supported major telecom operators across East and Southern Africa through RF optimization, drive testing, and network modernization projects.</p>
+<div class="eyebrow" data-sw="Historia ya Kazi">Roaming history</div>
+<h2 data-sw="Mitandao Niliyowahi Kufanyia Kazi">Networks I've been on</h2>
+<p data-sw="Kwa zaidi ya miaka 8 iliyopita, nimesaidia makampuni makubwa ya simu Afrika Mashariki na Kusini kupitia miradi ya uboreshaji wa RF, upimaji wa mtandao, na uboreshaji wa mitandao.">Over the past 8+ years, I've supported major telecom operators across East and Southern Africa through RF optimization, drive testing, and network modernization projects.</p>
 </div>
 <div class="roam-table">
-<div class="roam-row head"><div>Operator</div><div>Country</div><div>Vendor</div><div>Employer</div></div>
+<div class="roam-row head"><div data-sw="Kampuni">Operator</div><div data-sw="Nchi">Country</div><div data-sw="Muuzaji">Vendor</div><div data-sw="Mwajiri">Employer</div></div>
 <div class="roam-row current">
-<div class="roam-op">Vodacom <span class="roam-now"><span class="rdot"></span><span class="blink-word">Current</span></span><button type="button" class="id-badge-btn" onclick="document.getElementById('idModal').classList.add('open')">🪪 View ID</button></div>
+<div class="roam-op">Vodacom <span class="roam-now"><span class="rdot"></span><span class="blink-word" data-sw="Sasa">Current</span></span><button type="button" class="id-badge-btn" onclick="document.getElementById('idModal').classList.add('open')">🪪 <span data-sw="Ona Kitambulisho">View ID</span></button></div>
 <div class="roam-country">Tanzania</div>
 <div class="roam-vendor">Huawei</div>
 <div class="roam-via"><a href="https://www.etelinfra.com/" target="_blank" rel="noopener">ETEL Tanzania</a></div>
@@ -1109,11 +1132,11 @@ RAWASEN
 <div class="roam-via"><a href="https://linkers.co.tz/" target="_blank" rel="noopener">Linkers</a></div>
 </div>
 <div class="roam-row">
-<div class="roam-op">Vodacom</div><div class="roam-country">Mozambique</div><div class="roam-vendor">Huawei</div>
+<div class="roam-op">Vodacom</div><div class="roam-country" data-sw="Msumbiji">Mozambique</div><div class="roam-vendor">Huawei</div>
 <div class="roam-via"><a href="https://maktech.co.tz/" target="_blank" rel="noopener">Maktech</a></div>
 </div>
 <div class="roam-row">
-<div class="roam-op">Vodacom</div><div class="roam-country">South Africa</div><div class="roam-vendor">Nokia</div>
+<div class="roam-op">Vodacom</div><div class="roam-country" data-sw="Afrika Kusini">South Africa</div><div class="roam-vendor">Nokia</div>
 <div class="roam-via"><a href="https://maktech.co.tz/" target="_blank" rel="noopener">Maktech</a></div>
 </div>
 <div class="roam-row">
@@ -1125,12 +1148,12 @@ RAWASEN
 
 <section class="clients" id="clients">
 <div class="section-head">
-<div class="eyebrow">Clients &amp; Technology Partners</div>
-<h2>Networks and vendors I've delivered for</h2>
+<div class="eyebrow" data-sw="Wateja na Washirika wa Kiteknolojia">Clients &amp; Technology Partners</div>
+<h2 data-sw="Mitandao na Wauzaji Niliowahudumia">Networks and vendors I've delivered for</h2>
 </div>
 
 <div class="client-group">
-<div class="client-group-label"><i class="dot dot-vendor"></i>Technology Vendors</div>
+<div class="client-group-label"><i class="dot dot-vendor"></i><span data-sw="Wauzaji wa Teknolojia">Technology Vendors</span></div>
 <div class="client-marquee">
 <div class="client-track" style="--marquee-dur:28s;">
 <div class="client-card"><img src="nokia.png" alt="Nokia"></div>
@@ -1148,7 +1171,7 @@ RAWASEN
 </div>
 
 <div class="client-group">
-<div class="client-group-label"><i class="dot dot-operator"></i>Mobile Network Operators</div>
+<div class="client-group-label"><i class="dot dot-operator"></i><span data-sw="Makampuni ya Simu">Mobile Network Operators</span></div>
 <div class="client-marquee">
 <div class="client-track reverse" style="--marquee-dur:34s;">
 <div class="client-card client-badge"><img src="mtn.jpg" alt="MTN"></div>
@@ -1168,7 +1191,7 @@ RAWASEN
 </div>
 
 <div class="client-group">
-<div class="client-group-label"><i class="dot dot-towerco"></i>Tower Companies</div>
+<div class="client-group-label"><i class="dot dot-towerco"></i><span data-sw="Makampuni ya Minara">Tower Companies</span></div>
 <div class="client-marquee">
 <div class="client-track" style="--marquee-dur:26s;">
 <div class="client-card client-badge"><img src="toa.png" alt="TOA - Towerco of Africa"></div>
@@ -1188,75 +1211,75 @@ RAWASEN
 
 <section class="project" id="projects">
 <div class="section-head">
-<div class="eyebrow">Project log</div>
-<h2>Telecom projects I've delivered</h2>
-<p>Drive testing, RF optimization, and network modernization projects delivered across multiple African countries including Tanzania, Rwanda, Mozambique, Ethiopia, Ghana, Botswana, and South Africa using Ericsson, Huawei, and Nokia technologies. Featured below are some of my largest and most impactful projects.</p>
+<div class="eyebrow" data-sw="Kumbukumbu za Miradi">Project log</div>
+<h2 data-sw="Miradi ya Mawasiliano Niliyokamilisha">Telecom projects I've delivered</h2>
+<p data-sw="Miradi ya upimaji wa mtandao, uboreshaji wa RF, na uboreshaji wa mitandao iliyokamilika katika nchi mbalimbali za Afrika ikiwemo Tanzania, Rwanda, Msumbiji, Ethiopia, Ghana, Botswana, na Afrika Kusini nikitumia teknolojia za Ericsson, Huawei, na Nokia. Hapa chini ni baadhi ya miradi yangu mikubwa na yenye athari kubwa.">Drive testing, RF optimization, and network modernization projects delivered across multiple African countries including Tanzania, Rwanda, Mozambique, Ethiopia, Ghana, Botswana, and South Africa using Ericsson, Huawei, and Nokia technologies. Featured below are some of my largest and most impactful projects.</p>
 </div>
 <div class="projects-log">
 <div class="proj-item">
-<div class="proj-top"><div class="proj-title">SSV, Cluster, Customer Complaint &amp; Vodacom Modernization Swap Projects</div><div class="proj-duration">2025 – Present</div></div>
-<div class="proj-meta"><span><span class="m-label">Role</span><span class="m-val">Drive Test Engineer</span></span><span><span class="m-label">Company</span><span class="m-val">ETEL Tanzania</span></span><span><span class="m-label">Customer</span><span class="m-val">Vodacom Tanzania</span></span><span><span class="m-label">Vendor</span><span class="m-val">Huawei</span></span></div>
-<ul class="proj-highlights"><li>Single Site Verification (SSV) and Cluster Drive Testing</li><li>Customer Complaint (CC) Investigations</li><li>Nokia-to-Huawei Equipment Swap Support</li></ul>
+<div class="proj-top"><div class="proj-title" data-sw="Miradi ya SSV, Kundi la Maeneo, Malalamiko ya Wateja, na Ubadilishaji wa Vifaa vya Vodacom">SSV, Cluster, Customer Complaint &amp; Vodacom Modernization Swap Projects</div><div class="proj-duration" data-sw="2025 – Sasa">2025 – Present</div></div>
+<div class="proj-meta"><span><span class="m-label" data-sw="Nafasi">Role</span><span class="m-val" data-sw="Mhandisi wa Upimaji wa Mtandao">Drive Test Engineer</span></span><span><span class="m-label" data-sw="Kampuni">Company</span><span class="m-val">ETEL Tanzania</span></span><span><span class="m-label" data-sw="Mteja">Customer</span><span class="m-val">Vodacom Tanzania</span></span><span><span class="m-label" data-sw="Muuzaji">Vendor</span><span class="m-val">Huawei</span></span></div>
+<ul class="proj-highlights"><li data-sw="Uthibitishaji wa Eneo Moja (SSV) na Upimaji wa Kundi la Maeneo">Single Site Verification (SSV) and Cluster Drive Testing</li><li data-sw="Uchunguzi wa Malalamiko ya Wateja (CC)">Customer Complaint (CC) Investigations</li><li data-sw="Msaada wa Ubadilishaji wa Vifaa kutoka Nokia kwenda Huawei">Nokia-to-Huawei Equipment Swap Support</li></ul>
 </div>
 <div class="proj-item">
-<div class="proj-top"><div class="proj-title">MTN Rwanda Cluster &amp; Customer Complaint Project</div><div class="proj-duration">2024 – 2025</div></div>
-<div class="proj-meta"><span><span class="m-label">Role</span><span class="m-val">Drive Test Engineer</span></span><span><span class="m-label">Company</span><span class="m-val">LinkQuest Tanzania</span></span><span><span class="m-label">Customer</span><span class="m-val">MTN Rwanda</span></span></div>
-<ul class="proj-highlights"><li>Cluster Drive Testing Across Rwanda</li><li>Customer Complaint Investigations</li><li>Coverage and Quality Issue Resolution</li></ul>
+<div class="proj-top"><div class="proj-title" data-sw="Mradi wa Kundi la Maeneo na Malalamiko ya Wateja wa MTN Rwanda">MTN Rwanda Cluster &amp; Customer Complaint Project</div><div class="proj-duration">2024 – 2025</div></div>
+<div class="proj-meta"><span><span class="m-label" data-sw="Nafasi">Role</span><span class="m-val" data-sw="Mhandisi wa Upimaji wa Mtandao">Drive Test Engineer</span></span><span><span class="m-label" data-sw="Kampuni">Company</span><span class="m-val">LinkQuest Tanzania</span></span><span><span class="m-label" data-sw="Mteja">Customer</span><span class="m-val">MTN Rwanda</span></span></div>
+<ul class="proj-highlights"><li data-sw="Upimaji wa Kundi la Maeneo Nchini Rwanda">Cluster Drive Testing Across Rwanda</li><li>Customer Complaint Investigations</li><li data-sw="Utatuzi wa Matatizo ya Mfikio na Ubora">Coverage and Quality Issue Resolution</li></ul>
 </div>
 <div class="proj-item">
-<div class="proj-top"><div class="proj-title">Tigo NSB &amp; Modernization Project</div><div class="proj-duration">2023 – 2024</div></div>
-<div class="proj-meta"><span><span class="m-label">Role</span><span class="m-val">Drive Test Engineer</span></span><span><span class="m-label">Company</span><span class="m-val">Talkpool Tanzania</span></span><span><span class="m-label">Customer</span><span class="m-val">Tigo Tanzania</span></span><span><span class="m-label">Vendor</span><span class="m-val">Ericsson</span></span></div>
-<ul class="proj-highlights"><li>Nationwide Modernization and New Site Build (NSB)</li><li>Site Acceptance and Drive Testing</li><li>Coverage Validation and KPI Verification</li></ul>
+<div class="proj-top"><div class="proj-title" data-sw="Mradi wa Ujenzi wa Maeneo Mapya na Uboreshaji wa Tigo">Tigo NSB &amp; Modernization Project</div><div class="proj-duration">2023 – 2024</div></div>
+<div class="proj-meta"><span><span class="m-label" data-sw="Nafasi">Role</span><span class="m-val" data-sw="Mhandisi wa Upimaji wa Mtandao">Drive Test Engineer</span></span><span><span class="m-label" data-sw="Kampuni">Company</span><span class="m-val">Talkpool Tanzania</span></span><span><span class="m-label" data-sw="Mteja">Customer</span><span class="m-val">Tigo Tanzania</span></span><span><span class="m-label" data-sw="Muuzaji">Vendor</span><span class="m-val">Ericsson</span></span></div>
+<ul class="proj-highlights"><li data-sw="Uboreshaji na Ujenzi wa Maeneo Mapya (NSB) Nchi Nzima">Nationwide Modernization and New Site Build (NSB)</li><li data-sw="Ukubalifu wa Maeneo na Upimaji wa Mtandao">Site Acceptance and Drive Testing</li><li data-sw="Uthibitishaji wa Mfikio na KPI">Coverage Validation and KPI Verification</li></ul>
 </div>
 <div class="proj-item">
-<div class="proj-top"><div class="proj-title">TTCL NSB Project</div><div class="proj-duration">2022 – 2023</div></div>
-<div class="proj-meta"><span><span class="m-label">Role</span><span class="m-val">Drive Test Engineer</span></span><span><span class="m-label">Company</span><span class="m-val">LinkQuest Tanzania</span></span><span><span class="m-label">Customer</span><span class="m-val">TTCL Tanzania</span></span><span><span class="m-label">Vendor</span><span class="m-val">Aviat Networks</span></span></div>
-<ul class="proj-highlights"><li>New Site Build (NSB) Activities</li><li>Post-Integration Verification and Drive Testing</li><li>Coverage Validation and KPI Analysis</li></ul>
+<div class="proj-top"><div class="proj-title" data-sw="Mradi wa Ujenzi wa Maeneo Mapya wa TTCL">TTCL NSB Project</div><div class="proj-duration">2022 – 2023</div></div>
+<div class="proj-meta"><span><span class="m-label" data-sw="Nafasi">Role</span><span class="m-val" data-sw="Mhandisi wa Upimaji wa Mtandao">Drive Test Engineer</span></span><span><span class="m-label" data-sw="Kampuni">Company</span><span class="m-val">LinkQuest Tanzania</span></span><span><span class="m-label" data-sw="Mteja">Customer</span><span class="m-val">TTCL Tanzania</span></span><span><span class="m-label" data-sw="Muuzaji">Vendor</span><span class="m-val">Aviat Networks</span></span></div>
+<ul class="proj-highlights"><li data-sw="Shughuli za Ujenzi wa Maeneo Mapya (NSB)">New Site Build (NSB) Activities</li><li data-sw="Uthibitishaji Baada ya Uunganishaji na Upimaji wa Mtandao">Post-Integration Verification and Drive Testing</li><li data-sw="Uthibitishaji wa Mfikio na Uchambuzi wa KPI">Coverage Validation and KPI Analysis</li></ul>
 </div>
 <div class="proj-item">
-<div class="proj-top"><div class="proj-title">Tigo Cheetah Optimization Project</div><div class="proj-duration">2021 – 2022</div></div>
-<div class="proj-meta"><span><span class="m-label">Role</span><span class="m-val">Drive Test Engineer</span></span><span><span class="m-label">Company</span><span class="m-val">Talkpool Tanzania</span></span><span><span class="m-label">Customer</span><span class="m-val">Tigo Tanzania</span></span><span><span class="m-label">Vendor</span><span class="m-val">Ericsson</span></span></div>
-<ul class="proj-highlights"><li>Nationwide Cluster Drive Testing</li><li>Optimization Across Tanzania</li><li>Customer Experience Improvement</li></ul>
+<div class="proj-top"><div class="proj-title" data-sw="Mradi wa Uboreshaji wa Tigo Cheetah">Tigo Cheetah Optimization Project</div><div class="proj-duration">2021 – 2022</div></div>
+<div class="proj-meta"><span><span class="m-label" data-sw="Nafasi">Role</span><span class="m-val" data-sw="Mhandisi wa Upimaji wa Mtandao">Drive Test Engineer</span></span><span><span class="m-label" data-sw="Kampuni">Company</span><span class="m-val">Talkpool Tanzania</span></span><span><span class="m-label" data-sw="Mteja">Customer</span><span class="m-val">Tigo Tanzania</span></span><span><span class="m-label" data-sw="Muuzaji">Vendor</span><span class="m-val">Ericsson</span></span></div>
+<ul class="proj-highlights"><li data-sw="Upimaji wa Kundi la Maeneo Nchi Nzima">Nationwide Cluster Drive Testing</li><li data-sw="Uboreshaji Nchini Tanzania Nzima">Optimization Across Tanzania</li><li data-sw="Uboreshaji wa Uzoefu wa Mteja">Customer Experience Improvement</li></ul>
 </div>
 <div class="proj-item">
-<div class="proj-top"><div class="proj-title">Vodacom Tanzania LTE 700 (L700) Deployment Project</div><div class="proj-duration">2020 – 2021</div></div>
-<div class="proj-meta"><span><span class="m-label">Role</span><span class="m-val">Drive Test Engineer</span></span><span><span class="m-label">Company</span><span class="m-val">MAKTECH Tanzania</span></span><span><span class="m-label">Customer</span><span class="m-val">Vodacom Tanzania</span></span><span><span class="m-label">Vendor</span><span class="m-val">Nokia</span></span></div>
-<ul class="proj-highlights"><li>L700 Site Deployment, Testing and Optimization</li><li>Rural and Indoor Coverage Improvement</li></ul>
+<div class="proj-top"><div class="proj-title" data-sw="Mradi wa Uzinduzi wa LTE 700 (L700) wa Vodacom Tanzania">Vodacom Tanzania LTE 700 (L700) Deployment Project</div><div class="proj-duration">2020 – 2021</div></div>
+<div class="proj-meta"><span><span class="m-label" data-sw="Nafasi">Role</span><span class="m-val" data-sw="Mhandisi wa Upimaji wa Mtandao">Drive Test Engineer</span></span><span><span class="m-label" data-sw="Kampuni">Company</span><span class="m-val">MAKTECH Tanzania</span></span><span><span class="m-label" data-sw="Mteja">Customer</span><span class="m-val">Vodacom Tanzania</span></span><span><span class="m-label" data-sw="Muuzaji">Vendor</span><span class="m-val">Nokia</span></span></div>
+<ul class="proj-highlights"><li data-sw="Uzinduzi, Upimaji na Uboreshaji wa Maeneo ya L700">L700 Site Deployment, Testing and Optimization</li><li data-sw="Uboreshaji wa Mfikio Vijijini na Ndani ya Majengo">Rural and Indoor Coverage Improvement</li></ul>
 </div>
 <div class="proj-item">
-<div class="proj-top"><div class="proj-title">Julius Nyerere International Airport Terminal 3 IBS Project</div><div class="proj-duration">Additional Project</div></div>
-<div class="proj-meta"><span><span class="m-label">Role</span><span class="m-val">Drive Test Engineer</span></span><span><span class="m-label">Company</span><span class="m-val">MAKTECH Tanzania</span></span><span><span class="m-label">Customer</span><span class="m-val">Tanzania Airports Authority</span></span><span><span class="m-label">Vendor</span><span class="m-val">Nokia</span></span></div>
-<ul class="proj-highlights"><li>Indoor Building Solution (IBS) Deployment</li><li>Indoor Coverage and Performance Optimization</li></ul>
+<div class="proj-top"><div class="proj-title" data-sw="Mradi wa IBS wa Kituo cha 3 cha Uwanja wa Ndege wa Kimataifa wa Julius Nyerere">Julius Nyerere International Airport Terminal 3 IBS Project</div><div class="proj-duration" data-sw="Mradi wa Ziada">Additional Project</div></div>
+<div class="proj-meta"><span><span class="m-label" data-sw="Nafasi">Role</span><span class="m-val" data-sw="Mhandisi wa Upimaji wa Mtandao">Drive Test Engineer</span></span><span><span class="m-label" data-sw="Kampuni">Company</span><span class="m-val">MAKTECH Tanzania</span></span><span><span class="m-label" data-sw="Mteja">Customer</span><span class="m-val">Tanzania Airports Authority</span></span><span><span class="m-label" data-sw="Muuzaji">Vendor</span><span class="m-val">Nokia</span></span></div>
+<ul class="proj-highlights"><li data-sw="Uzinduzi wa Suluhisho la Mfikio Ndani ya Jengo (IBS)">Indoor Building Solution (IBS) Deployment</li><li data-sw="Uboreshaji wa Mfikio na Utendaji Ndani ya Jengo">Indoor Coverage and Performance Optimization</li></ul>
 </div>
 <div class="proj-item">
-<div class="proj-top"><div class="proj-title">Vodacom Mozambique Nationwide Drive Test &amp; Optimization Project</div><div class="proj-duration">2019 – 2020</div></div>
-<div class="proj-meta"><span><span class="m-label">Role</span><span class="m-val">Drive Test Engineer</span></span><span><span class="m-label">Company</span><span class="m-val">MAKTECH LDA Mozambique</span></span><span><span class="m-label">Customer</span><span class="m-val">Vodacom Mozambique</span></span><span><span class="m-label">Vendor</span><span class="m-val">Huawei</span></span></div>
-<ul class="proj-highlights"><li>Nationwide Drive Testing Across Mozambique</li><li>Coverage and Quality Improvement</li><li>Customer Experience Optimization</li></ul>
+<div class="proj-top"><div class="proj-title" data-sw="Mradi wa Upimaji wa Mtandao na Uboreshaji wa Vodacom Msumbiji Nchi Nzima">Vodacom Mozambique Nationwide Drive Test &amp; Optimization Project</div><div class="proj-duration">2019 – 2020</div></div>
+<div class="proj-meta"><span><span class="m-label" data-sw="Nafasi">Role</span><span class="m-val" data-sw="Mhandisi wa Upimaji wa Mtandao">Drive Test Engineer</span></span><span><span class="m-label" data-sw="Kampuni">Company</span><span class="m-val">MAKTECH LDA Mozambique</span></span><span><span class="m-label" data-sw="Mteja">Customer</span><span class="m-val">Vodacom Mozambique</span></span><span><span class="m-label" data-sw="Muuzaji">Vendor</span><span class="m-val">Huawei</span></span></div>
+<ul class="proj-highlights"><li data-sw="Upimaji wa Mtandao Nchini Msumbiji Nzima">Nationwide Drive Testing Across Mozambique</li><li data-sw="Uboreshaji wa Mfikio na Ubora">Coverage and Quality Improvement</li><li data-sw="Uboreshaji wa Uzoefu wa Mteja">Customer Experience Optimization</li></ul>
 </div>
 <div class="proj-item">
-<div class="proj-top"><div class="proj-title">Vodacom Tanzania SSV Project</div><div class="proj-duration">2018 – 2019</div></div>
-<div class="proj-meta"><span><span class="m-label">Role</span><span class="m-val">Drive Test Engineer</span></span><span><span class="m-label">Company</span><span class="m-val">MAKTECH Tanzania</span></span><span><span class="m-label">Customer</span><span class="m-val">Vodacom Tanzania</span></span><span><span class="m-label">Vendor</span><span class="m-val">Nokia</span></span></div>
-<ul class="proj-highlights"><li>Single Site Verification (SSV) for New Sites</li><li>Drive Testing and KPI Verification</li><li>Coverage Validation and Quality Assessment</li></ul>
+<div class="proj-top"><div class="proj-title" data-sw="Mradi wa SSV wa Vodacom Tanzania">Vodacom Tanzania SSV Project</div><div class="proj-duration">2018 – 2019</div></div>
+<div class="proj-meta"><span><span class="m-label" data-sw="Nafasi">Role</span><span class="m-val" data-sw="Mhandisi wa Upimaji wa Mtandao">Drive Test Engineer</span></span><span><span class="m-label" data-sw="Kampuni">Company</span><span class="m-val">MAKTECH Tanzania</span></span><span><span class="m-label" data-sw="Mteja">Customer</span><span class="m-val">Vodacom Tanzania</span></span><span><span class="m-label" data-sw="Muuzaji">Vendor</span><span class="m-val">Nokia</span></span></div>
+<ul class="proj-highlights"><li data-sw="Uthibitishaji wa Eneo Moja (SSV) kwa Maeneo Mapya">Single Site Verification (SSV) for New Sites</li><li data-sw="Upimaji wa Mtandao na Uthibitishaji wa KPI">Drive Testing and KPI Verification</li><li data-sw="Uthibitishaji wa Mfikio na Tathmini ya Ubora">Coverage Validation and Quality Assessment</li></ul>
 </div>
 </div>
 </section>
 
 <section class="handover" id="handover">
 <div class="section-head">
-<div class="eyebrow">In progress</div>
-<h2>Carrier Aggregation: RF Engineering + Software Development</h2>
-<p>In telecom, carrier aggregation combines multiple bands at once for more capacity — no dropped connection, just more throughput. That's this chapter.</p>
+<div class="eyebrow" data-sw="Inaendelea">In progress</div>
+<h2 data-sw="Muunganiko wa Njia: Uhandisi wa RF + Uendelezaji wa Programu">Carrier Aggregation: RF Engineering + Software Development</h2>
+<p data-sw="Katika mawasiliano, muunganiko wa njia (carrier aggregation) huchanganya njia kadhaa kwa wakati mmoja kupata uwezo zaidi — hakuna muunganiko unaokatika, ni kasi zaidi tu. Hii ndiyo sura hii ya safari yangu.">In telecom, carrier aggregation combines multiple bands at once for more capacity — no dropped connection, just more throughput. That's this chapter.</p>
 </div>
 <div class="handover-track">
-<div class="node active"><div class="dot"></div><div class="node-label">CARRIER 1</div><div class="node-title">RF engineering, ongoing</div></div>
-<div class="node active"><div class="dot"></div><div class="node-label">CARRIER 2</div><div class="node-title">Python fundamentals</div></div>
+<div class="node active"><div class="dot"></div><div class="node-label">CARRIER 1</div><div class="node-title" data-sw="Uhandisi wa RF, unaoendelea">RF engineering, ongoing</div></div>
+<div class="node active"><div class="dot"></div><div class="node-label">CARRIER 2</div><div class="node-title" data-sw="Misingi ya Python">Python fundamentals</div></div>
 </div>
-<div class="handover-note">Currently on <code>main</code> — expanding into software engineering through Python, CS50P, and hands-on projects while continuing full-time RF engineering. The goal is to build intelligent tools that improve telecom operations through automation and data analysis.</div>
+<div class="handover-note" data-sw="Kwa sasa niko kwenye <code>main</code> — ninajiendeleza katika uhandisi wa programu kupitia Python, CS50P, na miradi ya vitendo huku nikiendelea na uhandisi wa RF kwa muda wote. Lengo ni kutengeneza zana bunifu zinazoboresha uendeshaji wa mawasiliano kupitia mifumo ya kiotomatiki na uchambuzi wa takwimu.">Currently on <code>main</code> — expanding into software engineering through Python, CS50P, and hands-on projects while continuing full-time RF engineering. The goal is to build intelligent tools that improve telecom operations through automation and data analysis.</div>
 </section>
 
 <section class="contact" id="contact">
-<div class="eyebrow">Get in touch</div>
-<h2>Open to conversations about telecom, code, or the space in between.</h2>
+<div class="eyebrow" data-sw="Wasiliana Nami">Get in touch</div>
+<h2 data-sw="Niko Tayari Kuzungumza Kuhusu Mawasiliano, Programu, au Kati Yake.">Open to conversations about telecom, code, or the space in between.</h2>
 <div class="contact-links">
 <div class="contact-card">
 <div class="contact-card-icon">
@@ -1289,7 +1312,7 @@ RAWASEN
 
 <footer>
 <span>© 2026 Rawasen Munisi — </span>
-<span>RF NETWORK ENGINEER </span>
+<span data-sw="MHANDISI WA MITANDAO YA RF">RF NETWORK ENGINEER </span>
 <a class="footer-credit" href="#" target="_blank" rel="noopener"> <img class="logo-dark" src="rawasen-technology-logo-dark.png" alt="Rawasen Technology"><img class="logo-light" src="rawasen-technology-logo-light.png" alt="Rawasen Technology"></a>
 </footer>
 
@@ -1407,6 +1430,38 @@ document.addEventListener('keydown', function(e){
       root.setAttribute('data-theme','light');
     }
     window.dispatchEvent(new Event('resize'));
+  });
+})();
+
+/* ---- Language toggle ----
+   Extensible: add a new button data-lang="xx" in #langToggle and
+   data-xx="..." attributes on any element to support another language. */
+(function(){
+  var STORAGE_KEY = 'rm_lang';
+  var toggle = document.getElementById('langToggle');
+  if(!toggle) return;
+
+  function applyLang(lang){
+    document.querySelectorAll('[data-sw],[data-fr],[data-pt],[data-zh]').forEach(function(el){
+      if(el.dataset.en === undefined){ el.dataset.en = el.innerHTML; }
+      var target = el.dataset[lang];
+      el.innerHTML = (lang === 'en' || target === undefined) ? el.dataset.en : target;
+    });
+    toggle.querySelectorAll('.lang-btn').forEach(function(b){
+      b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+    });
+    document.documentElement.setAttribute('lang', lang);
+    try{ localStorage.setItem(STORAGE_KEY, lang); }catch(e){}
+  }
+
+  var saved = 'en';
+  try{ saved = localStorage.getItem(STORAGE_KEY) || 'en'; }catch(e){}
+  applyLang(saved);
+
+  toggle.querySelectorAll('.lang-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      applyLang(b.getAttribute('data-lang'));
+    });
   });
 })();
 </script>
