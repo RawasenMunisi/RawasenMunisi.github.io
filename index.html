@@ -248,6 +248,7 @@ section{ position:relative; z-index:2; padding:0 6vw; }
   background:#FF2D1F;
   z-index:0;
   pointer-events:none;
+  visibility:hidden;
   animation: towerBlink 1.3s ease-in-out infinite;
   --tl-glow-on-1:0 0 10px 4px rgba(255,45,31,0.9);
   --tl-glow-on-2:0 0 22px 10px rgba(255,45,31,0.6);
@@ -1466,6 +1467,7 @@ document.addEventListener('keydown', function(e){
     var y = pTop + (LIGHT_Y * scale) - offsetY;
     dot.style.left = x + 'px';
     dot.style.top = y + 'px';
+    dot.style.visibility = 'visible';
   }
   position();
   window.addEventListener('resize', position);
