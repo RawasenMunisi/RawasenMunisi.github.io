@@ -858,7 +858,14 @@ html[data-theme="light"] .footer-credit .logo-light{ display:block; }
   nav.links{ display:none; }
   .portrait-card{ flex-direction:column; text-align:center; width:100%; }
   .portrait-info .p-name, .portrait-info .p-role{ white-space:normal; }
-  .tower-light{ top:7.1%; left:49.1%; }
+  .tower-light{
+    top:7.1%; left:49.1%;
+    width:9px; height:9px;
+    --tl-glow-on-1:0 0 5px 2px rgba(255,45,31,0.85);
+    --tl-glow-on-2:0 0 9px 3px rgba(255,45,31,0.45);
+    --tl-glow-on-3:0 0 13px 5px rgba(255,45,31,0.2);
+    --tl-glow-dim:0 0 4px 1px rgba(255,45,31,0.35);
+  }
   .hero::before{
     top:64px; bottom:auto; height:420px;
     --tower-bg-pos-x:78%;
