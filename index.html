@@ -244,16 +244,24 @@ section{ position:relative; z-index:2; padding:0 6vw; }
   top:10.7%;
   left:78%;
   transform:translate(-50%,-50%);
-  width:13px; height:13px; border-radius:50%;
+  width:14px; height:14px; border-radius:50%;
   background:#FF2D1F;
   z-index:0;
   pointer-events:none;
   visibility:hidden;
   animation: towerBlink 1.3s ease-in-out infinite;
-  --tl-glow-on-1:0 0 10px 4px rgba(255,45,31,0.9);
-  --tl-glow-on-2:0 0 22px 10px rgba(255,45,31,0.6);
-  --tl-glow-on-3:0 0 38px 18px rgba(255,45,31,0.32);
-  --tl-glow-dim:0 0 8px 3px rgba(255,45,31,0.4);
+  /* Dark mode (default): stronger, more vivid glow */
+  --tl-glow-on-1:0 0 14px 6px rgba(255,45,31,0.95);
+  --tl-glow-on-2:0 0 28px 13px rgba(255,45,31,0.65);
+  --tl-glow-on-3:0 0 46px 22px rgba(255,45,31,0.35);
+  --tl-glow-dim:0 0 10px 4px rgba(255,45,31,0.45);
+}
+html[data-theme="light"] .tower-light{
+  width:11px; height:11px;
+  --tl-glow-on-1:0 0 6px 2px rgba(255,45,31,0.75);
+  --tl-glow-on-2:0 0 12px 5px rgba(255,45,31,0.4);
+  --tl-glow-on-3:0 0 18px 8px rgba(255,45,31,0.18);
+  --tl-glow-dim:0 0 5px 1px rgba(255,45,31,0.25);
 }
 @keyframes towerBlink{
   0%, 100%{
@@ -861,11 +869,18 @@ html[data-theme="light"] .footer-credit .logo-light{ display:block; }
   .portrait-info .p-name, .portrait-info .p-role{ white-space:normal; }
   .tower-light{
     top:7.1%; left:49.1%;
-    width:9px; height:9px;
-    --tl-glow-on-1:0 0 5px 2px rgba(255,45,31,0.85);
-    --tl-glow-on-2:0 0 9px 3px rgba(255,45,31,0.45);
-    --tl-glow-on-3:0 0 13px 5px rgba(255,45,31,0.2);
-    --tl-glow-dim:0 0 4px 1px rgba(255,45,31,0.35);
+    width:10px; height:10px;
+    --tl-glow-on-1:0 0 7px 3px rgba(255,45,31,0.95);
+    --tl-glow-on-2:0 0 13px 5px rgba(255,45,31,0.6);
+    --tl-glow-on-3:0 0 19px 8px rgba(255,45,31,0.3);
+    --tl-glow-dim:0 0 6px 2px rgba(255,45,31,0.4);
+  }
+  html[data-theme="light"] .tower-light{
+    width:8px; height:8px;
+    --tl-glow-on-1:0 0 4px 1px rgba(255,45,31,0.7);
+    --tl-glow-on-2:0 0 7px 2px rgba(255,45,31,0.35);
+    --tl-glow-on-3:0 0 10px 3px rgba(255,45,31,0.15);
+    --tl-glow-dim:0 0 3px 1px rgba(255,45,31,0.2);
   }
   .hero::before{
     top:64px; bottom:auto; height:420px;
