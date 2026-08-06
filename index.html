@@ -694,6 +694,20 @@ html[data-theme="light"] .roaming::before{
   box-shadow:0 0 0 1px rgba(76,217,232,0.15);
 }
 
+.qr-card{ width:300px; text-align:center; }
+.qr-card-logo{ height:26px; width:auto; margin:0 auto 16px; display:block; }
+.qr-card-logo.logo-light{ display:none; }
+html[data-theme="light"] .qr-card-logo.logo-dark{ display:none; }
+html[data-theme="light"] .qr-card-logo.logo-light{ display:block; }
+.qr-card-box{
+  background:#fff; border-radius:12px; padding:16px;
+  box-shadow:0 0 0 1px rgba(76,217,232,0.15);
+}
+.qr-card-box img{ width:100%; height:auto; display:block; border-radius:4px; }
+.qr-card-caption{ margin-top:16px; font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--text-muted); letter-spacing:0.03em; }
+.qr-card-link{ display:inline-block; margin-top:6px; font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--cyan); text-decoration:none; border-bottom:1px dotted var(--cyan); padding-bottom:1px; word-break:break-all; }
+.qr-card-link:hover{ color:var(--text-primary); border-color:var(--text-primary); }
+
 /* ===== PROJECTS ===== */
 .project{ padding:100px 6vw; border-top:1px solid var(--line); }
 .projects-log{ display:flex; flex-direction:column; gap:16px; margin-top:44px; }
@@ -1395,8 +1409,27 @@ RAWASEN
 <footer>
 <span>© 2026 Rawasen Munisi — </span>
 <span data-sw="MHANDISI WA MITANDAO YA RF" data-ja="RFネットワークエンジニア" data-ko="RF 네트워크 엔지니어" data-ar="مهندس شبكات ترددات لاسلكية" data-rw="INJENIYERI W'IMIYOBORO YA RF" data-zu="INJINIYELA YAMANETHIWEKHI E-RF" data-xh="INJINELI YAMANETHIWEKHI E-RF" data-ur="آر ایف نیٹ ورک انجینئر" data-fr="INGÉNIEUR RÉSEAUX RF" data-es="INGENIERO DE REDES RF" data-pt="ENGENHEIRO DE REDES RF" data-zh="射频网络工程师">RF NETWORK ENGINEER </span>
-<a class="footer-credit" href="#" target="_blank" rel="noopener"> <img class="logo-dark" src="rawasen-technology-logo-dark.png" alt="Rawasen Technology"><img class="logo-light" src="rawasen-technology-logo-light.png" alt="Rawasen Technology"></a>
+<button type="button" class="footer-credit" style="background:none;border:none;cursor:pointer;padding:0;" onclick="document.getElementById('qrModal').classList.add('open')"> <img class="logo-dark" src="rawasen-technology-logo-dark.png" alt="Rawasen Technology"><img class="logo-light" src="rawasen-technology-logo-light.png" alt="Rawasen Technology"></button>
 </footer>
+
+<div class="id-modal-overlay" id="qrModal">
+<div class="id-card qr-card">
+<button type="button" class="id-card-close" onclick="document.getElementById('qrModal').classList.remove('open')">✕</button>
+<img class="qr-card-logo logo-dark" src="rawasen-technology-logo-dark.png" alt="Rawasen Technology">
+<img class="qr-card-logo logo-light" src="rawasen-technology-logo-light.png" alt="Rawasen Technology">
+<div class="qr-card-box"><img src="rawasen-technologies-qr.png" alt="Rawasen Technologies QR Code"></div>
+<div class="qr-card-caption">Scan to visit</div>
+<a class="qr-card-link" href="https://rawasenmunisi.com/rawasentechnologies/" target="_blank" rel="noopener">rawasenmunisi.com/rawasentechnologies</a>
+</div>
+</div>
+<script>
+document.getElementById('qrModal').addEventListener('click', function(e){
+  if(e.target === this){ this.classList.remove('open'); }
+});
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape'){ document.getElementById('qrModal').classList.remove('open'); }
+});
+</script>
 
 <div class="id-modal-overlay" id="idModal">
 <div class="id-card id-card-photo-mode">
