@@ -821,7 +821,7 @@ html[data-theme="light"] .qr-card-logo.logo-light{ display:block; }
 .client-track.reverse{ animation-direction:reverse; }
 @keyframes clientScroll{
   from{ transform:translateX(0); }
-  to{ transform:translateX(-50%); }
+  to{ transform:translateX(var(--shift, -50%)); }
 }
 
 .client-card{
@@ -1699,6 +1699,40 @@ document.addEventListener('keydown', function(e){
     });
   }, { threshold: 0.15 });
   marquees.forEach(function(m){ observer.observe(m); });
+
+  /* Seamless loop: repeat one set of logos until the track is wider than the
+     screen, then slide by exactly one set width so the loop never shows a gap. */
+  var SPEED = 45; /* px per second */
+  function build(m){
+    var track = m.querySelector('.client-track');
+    if(!track) return;
+    if(!track._set){
+      var cards = Array.prototype.slice.call(track.children);
+      track._set = cards.slice(0, Math.ceil(cards.length / 2));
+    }
+    var set = track._set;
+    track.innerHTML = '';
+    set.forEach(function(c){ track.appendChild(c); });
+    var gap = parseFloat(getComputedStyle(track).columnGap) || 16;
+    var setW = 0;
+    set.forEach(function(c){ setW += c.getBoundingClientRect().width + gap; });
+    if(!setW) return;
+    var copies = Math.ceil(m.clientWidth / setW) + 1;
+    for(var i = 0; i < copies; i++){
+      set.forEach(function(c){
+        var clone = c.cloneNode(true);
+        clone.setAttribute('aria-hidden', 'true');
+        track.appendChild(clone);
+      });
+    }
+    track.style.setProperty('--shift', (-setW) + 'px');
+    track.style.setProperty('--marquee-dur', (setW / SPEED).toFixed(1) + 's');
+  }
+  function buildAll(){ marquees.forEach(build); }
+  buildAll();
+  window.addEventListener('load', buildAll);
+  var rt;
+  window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(buildAll, 200); });
 })();
 
 /* ---- Theme toggle ---- */
